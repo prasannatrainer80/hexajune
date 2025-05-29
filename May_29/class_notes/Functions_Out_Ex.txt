@@ -1,0 +1,157 @@
+A function is a subprogram, that which returns value based on some calculation. 
+
+You can create a function as 
+
+create or replace function function_name(pars) 
+
+
+create or replace function function_name return datatype
+variable declarations;
+begin
+   pl/sql subprogram;
+exception
+   exception code
+end;
+
+
+create or replace function greeting return varchar2
+AS
+BEGIN
+     return 'Welcome to PL/SQL Functions';
+END;
+
+select greeting from dual;
+
+create or replace function greeting(eno number) return varchar2
+AS
+res varchar2(30);
+BEGIN 
+     res := case eno
+        when 1 then 'Ajay'
+        when 2 then 'Hemanth'
+        when 3 then 'Sushmitha'
+        when 4 then 'Tanushri'
+         else 'unknown' end;
+    return res;
+END;
+
+select greeting(1) from dual;
+
+___________________________________________________________________
+
+create or replace function tds(sal number) return number
+as
+begin
+       return sal/10;
+end;
+
+select tds(10000) from dual;
+select empno, ename,job,sal,tds(sal),sal-tds(sal) "TakeHome" from emp;
+
+_______________________________________________________________________
+
+Create or Replace Function fnGenerateAccountNo return number
+as
+ accno number;
+begin
+    select case when max(accountNo) IS NULL THEN 1 else max(accountNo)+1
+	end into accno from accounts;
+    return accno;
+end;
+
+________________________________________________________________________
+
+Create or replace function FnShowBalance(accno number) return number
+as
+  bal number;
+begin
+    select Amount into bal from accounts where accountno=accno;
+    return bal;
+end;
+
+ select FnShowBalance(2) from dual;
+
+_______________________________________________________________________
+
+Types of Parameters : 
+
+IN  : Used for input purpose By default ORACLE takes IN param.
+
+OUT : If you want to return more than one value then we need to use out parameter.
+
+OUT parameter procedures needs to be executed from another stored procedure. 
+
+Create or replace procedure prcEmploySearchOut(
+   eno employ.empno%type,
+   nam OUT employ.name%type,
+   dpt OUT employ.dept%type,
+   dsg OUT employ.desig%type,
+   bas OUT employ.basic%type
+)
+AS
+BEGIN
+	select name,dept,desig,basic into nam,dpt,dsg,bas from Employ
+	  WHERE Empno = eno;
+END;
+
+To execute above procedure...
+
+Create or replace procedure prcEmployExecout(eno employ.empno%type)
+AS
+   nam employ.name%type;
+   dpt employ.dept%type;
+   dsg employ.desig%type;
+   bas employ.basic%type;
+BEGIN
+     prcEmploySearchOut(eno,nam,dpt,dsg,bas);
+     dbms_output.put_line('Name ' ||nam);
+     dbms_output.put_line('Department ' ||dpt);
+     dbms_output.put_line('Designation ' ||dsg);
+     dbms_output.put_line('Salary ' ||bas);
+END;
+
+exec prcEmployExecout(7);
+
+create or replace procedure prcAccountSearchOut(
+	accno accounts.accountNo%type,
+        fname OUT accounts.firstName%type,
+        lname OUT accounts.lastName%type,
+        cit OUT accounts.city%type,
+        st OUT accounts.state%type,
+        amt OUT accounts.amount%type,
+        cf OUT accounts.cheqfacil%type,
+        atype OUT accounts.accountType%type
+) 
+AS
+BEGIN
+    select Firstname,LastName,city,State,Amount,CheqFacil,AccountType
+	into fname,lname,cit,st,amt,cf,atype FROM Accounts where accountNo =accno;
+END;
+
+________________________________________________________________________
+
+create or replace procedure prcAccountSearchResult (
+	accno accounts.accountno%type)
+AS
+        fname accounts.firstName%type;
+        lname accounts.lastName%type;
+        cit accounts.city%type;
+        st accounts.state%type;
+        amt accounts.amount%type;
+        cf accounts.cheqfacil%type;
+        atype accounts.accountType%type;
+BEGIN
+     prcAccountSearchOut(accno,fname,lname,cit,st,amt,cf,atype);
+     dbms_output.put_line('Account No ' || accno);
+     dbms_output.put_line('First Name ' || fname);
+     dbms_output.put_line('Last Name ' || lname);
+     dbms_output.put_line('City ' || cit);
+     dbms_output.put_line('State ' || st);
+     dbms_output.put_line('Amount ' || amt);
+     dbms_output.put_line('Cheq Facil ' || cf);
+     dbms_output.put_line('Account Type ' || atype);
+END;
+
+
+
+
