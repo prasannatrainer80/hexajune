@@ -1,0 +1,104 @@
+Create Table Accounts
+(
+   AccountNo number primary key,
+   FirstName varchar2(30),
+   LastName varchar2(30),
+   City varchar2(30),
+   State varchar2(30),
+   Amount Number(9,2),
+   CheqFacil varchar2(10),
+   AccountType varchar2(20),
+   Status varchar2(10) default 'active',
+   DateOfOpen Date Default sysdate
+);
+
+Create Table Trans
+(
+   AccountNo Number references Accounts(AccountNo),
+   TranAmount number,
+   TranType varchar(1) CHECK(TranType IN('C','D')),
+   TranDate date default sysdate
+);
+
+select case when max(accountNo) IS NULL THEN 1 else max(accountNo)+1 end accno
+from accounts;
+
+create or replace procedure prcAccountCreate(
+   fname accounts.firstName%type,
+   lname accounts.lastName%type,
+   cit accounts.city%type,
+   st accounts.state%type,
+   amt accounts.amount%type,
+   cf accounts.cheqFacil%type,
+   atype accounts.AccountType%type
+)
+AS
+   accno accounts.accountNo%type;
+BEGIN
+     select case when max(accountNo) IS NULL THEN 1 else max(accountNo)+1 end 
+	into accno from accounts;
+     Insert into Accounts(AccountNo,FirstName,LastName,City,State,Amount,
+	CheqFacil,AccountType) values(accno,fname,lname,cit,st,amt,cf,atype);
+END;
+____________________________________________________________
+
+
+Create Or Replace Procedure PrcAccountSearch(accno Accounts.AccountNo%type)
+AS
+ fname accounts.firstName%type;
+   lname accounts.lastName%type;
+   cit accounts.city%type;
+   st accounts.state%type;
+   amt accounts.amount%type;
+   cf accounts.cheqFacil%type;
+   atype accounts.AccountType%type;   
+BEGIN
+   Select FirstName,LastName,City,State,Amount,CheqFacil,AccountType
+	INTO Fname,Lname,cit,St,Amt,Cf,Atype FROM Accounts 
+     WHERE AccountNo=accno;
+   dbms_output.put_line('First Name ' ||fname);
+   dbms_output.put_line('Last Name ' ||lname);
+   dbms_output.put_line('City ' ||cit);
+   dbms_output.put_line('State ' ||st);
+   dbms_output.put_line('Amount ' ||amt);
+   dbms_output.put_line('Cheq Facil ' ||cf);
+   dbms_output.put_line('Account Type ' ||atype);
+Exception
+   WHEN NO_DATA_FOUND THEN
+      dbms_output.put_line('Account No Does Not Exist...');
+END;
+________________________________________________________________________
+
+Create or Replace Procedure prcAccountDeposit(
+    accno Accounts.AccountNo%type,
+    depAmt number
+)
+AS
+BEGIN
+     Update Accounts set Amount = Amount + depamt WHERE AccountNo=Accno;
+     Insert into Trans(AccountNo,TranAmount,TranType) values(accno,depAmt,'C');
+END;
+
+Exec prcAccountDeposit(1,10000);
+
+_________________________________________________________________________
+
+Create Or Replace Procedure prcAccountWithdraw(
+             accno Accounts.AccountNo%type,
+             wamt number)
+AS
+    balance number;
+BEGIN
+     select amount into balance from accounts where accountno=accno;
+     if (balance-wamt >= 0) then
+          Update Accounts set Amount = Amount - wamt WHERE AccountNo=Accno;
+     Insert into Trans(AccountNo,TranAmount,TranType) 
+		values(accno,wamt,'D');
+        dbms_output.put_line('Amount Debited Successfully...');
+        else 
+          dbms_output.put_line('Insufficient Funds...');
+     end if;
+End;
+
+Exec prcAccountWithdraw(1,9000);
+
