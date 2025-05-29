@@ -1,0 +1,582 @@
+Sequences :  Oracle provides an automatic sequence generator of numeric values, which can have maximum vlaue of upto 38 digits. A sequence can be defined to 
+
+1) To generate numbers in ascening or descending
+2) provide intervals between numbers
+3) caching of sequence numbers in memory etc..
+
+
+Creating the Sequences : 
+
+A sequence can be created by issuing the follwoign statement. 
+
+create sequence sequence_name increment by integer start with integer maxvalue integer minvalue integer cycle/nocycle 
+
+cycle : this specifies that the sequence continues to generate values after the reaching either its max or min value.
+
+nocycle : specifies that the sequence cannot generate more values after reaching the maximum or minimum value. 
+
+ create sequence seq1 increment by 1 start with 1 maxvalue 100 cycle;
+
+Referencing the Sequence : 
+
+Once defined, the user must be able to acces aunique sequence number. This can be done by using select statement. 
+
+select sequence_name.nextval from dual;
+
+Refer to the current value 
+
+select sequence_name.currval from dual;
+
+select seq1.NEXTVAL from dual;
+
+insert into x1 values(seq1.nextval,'chandana',19556);
+insert into x1 values(seq1.nextval,'senthil',20444);
+insert into x1 values(seq1.nextval,'kumar',24444);
+
+Creating Views : 
+
+A view is a virtual object, that contains the query as an object in the database. 
+
+To make the querying of the table easier, oracle provides for the generation of views. A view is created unique, according to the needs of each user, where the user can then only access those fields of the database allowd by the view. 
+
+Views may be created for the following reasons : 
+
+1) The DBA stores the view as a definition only. Hence, there is no duplication of data. 
+2) Simplified queries
+3) Can be queried as a base table itself. 
+4) Provides data security
+5) Avoids the data redundancy. 
+
+creation of views : 
+
+create view view_name as select * from tablename;
+
+create view v1 as 
+select empno,name,basic from emp;
+
+Updateable Views : 
+
+  Views can also be used for data manipulation the user can perform the insert,update and the delete operations on the view. The views on which data manipulation can be done are called Updateable Views. 
+
+For the view to be updateable, it should meet the following criteria : 
+
+1) The view must be created on a single table. 
+2) The primary key column of the table should be included in the view. 
+3) Aggregate functions canno tbe used in the select statement.
+4) The select statement used for creating a view should not include use subqueries for the creation of views. 
+5) It must not use constants, strings or values expressions like calculations. 
+
+__________________________________________________________________________________
+
+
+Simple Report : 
+
+1) Ttitle = sets the top title for each page of report. 
+
+ttitle center 'welcomoe to all' 
+
+2) Btitle -> set the bottom title for each page in the report. 
+
+btitle right 'Oracle class'
+
+3) Skip -> Skips as many blank lines. 
+
+ttitle center 'Welcome to VSOFT' skip 4
+
+column name heading 'Employ Name' : used to assign the heading to the column. 
+______________________________________________________________________________
+
+PL/SQL : It bridges the gap between database technology and procedural programming language. It can be thought of as a development tool that extends the facilities of Oracle's sql database language. 
+
+Syntax : 
+
+Declare 
+    Delcarations of memory variables used later;
+begin
+  sql executable statements for manipulating table data.
+exceptions 
+   SQL and/or pl/sql code to handle errors that may crop up during the execution of the above code block. 
+
+____________________________________________________
+
+Program sum of 2 numbers 
+
+ declare
+  n number(5):=6;
+  m number(5):=8;
+  p number;
+ begin
+   p:=n+m;
+   dbms_output.put_line('sum is  ' ||p);
+ end;
+
+____________________________________________________________________
+
+declare 
+n number(5):=&n;
+m number(5):=&m;
+p number(5);
+begin
+   p:=n+m;
+   dbms_output.put_line('Sum is  ' ||p);
+end;
+
+_________________________________________________________
+
+
+declare
+  n number(5);
+  bas number(5);
+begin
+  select empno,basic into n,bas from emp where empno=2;
+  dbms_output.put_line('Employ No ' ||n);
+  dbms_output.put_line('basic is ' ||bas);
+end;
+______________________________________________________________________
+DECLARE 
+   N NUMBER(5):=&N;
+   BAS NUMBER(9,2);
+   NAM VARCHAR2(19);
+BEGIN
+   SELECT ENAME,SAL INTO NAM,BAS FROM EMP WHERE EMPNO=N;
+   DBMS_OUTPUT.PUT_LINE('NAME IS  ' || NAM);
+   DBMS_OUTPUT.PUT_LINE('BASIC IS  ' || BAS);
+END;
+___________________________________________________________________
+
+declare 
+  n number:=&n;
+  na varchar2(15);
+  bas number;
+begin
+   select name,basic into na,bas from emp where empno=n;
+   dbms_output.put_line('Name is  ' ||na);
+   dbms_output.put_line('Basic is ' ||bas);
+end;
+_______________________________________________________________________
+
+Conditional control in PL/SQL : 
+
+If statement allows you to control the execution of a block of code. In PL/SQL you can use the IF..then..elseblock as 
+
+if condition then
+  <action>
+else
+   <action>
+end if; 
+
+_______________________________________________________________________________
+declare
+ n number(5):=&n;
+ begin
+   if n mod 2=0 then
+    dbms_output.put_line('Even');
+   else
+    dbms_output.put_line('Odd');
+   end if;
+ end;
+
+
+______________________________________________________________________________
+
+You can refer a variable w.r.t. the %type of column also. 
+
+ declare
+   n emp.empno%type:=&n;
+   na emp.name%type;
+   bas emp.basic%type;
+ begin
+    select name,basic into na,bas from emp where empno=n;
+   dbms_output.put_line('Name is ' ||na);
+   dbms_output.put_line('Basic is ' ||bas);
+ end;
+
+___________________________________________________________________________________
+
+
+
+declare
+   n number(5):=&n;
+   r number:=0;
+   d number;
+ begin
+    while n <> 0 loop
+     d:=n mod 10;
+     r:=(r*10)+d;
+    n:=n/10;
+    end loop;
+      dbms_output.put_line('Reversed No is  ' ||r);
+ end;
+
+________________________________________________________________________
+
+declare
+ v_grade char(2):='&v_grade';
+ v_appraisal varchar2(20);
+begin
+   v_appraisal:=
+    case v_grade
+       when 'A' then 'Excellent'
+       when 'B' then 'GOOD'
+       when 'C' then 'Satisfactory'
+       else 'No Such Grade '
+   end;
+   dbms_output.put_line('Appraisal is ' ||v_appraisal);
+end;
+_______________________________________________________________________________
+
+declare
+ n number(5):=&n;
+ i number;
+ begin
+   i:=0;
+   loop
+     i:=i+2;
+     dbms_output.put_line(i);
+    exit when i > n;
+   end loop;
+ end;
+
+_________________________________________________________________________________
+
+ declare
+   n number:=&n;
+   i number;
+   f number;
+  begin
+    i:=1;
+    f:=1;
+    loop
+       f:=f*i;
+       i:=i+1;
+     exit when i > n;
+     end loop;
+     dbms_output.put_line('Factorial is ' ||f);
+  end;
+__________________________________________________________________________
+
+For loop : 
+
+syn : 
+
+for variable in [reverse] start..end
+loop
+  <action>
+end loop;
+
+_______________________
+
+declare
+n number(5):=&n;
+i number(5);
+f number(5):=1;
+begin
+  for i in 1..n loop 
+    f:=f*i;
+  end loop;
+  dbms_output.put_line('Factorial is  ' ||f);
+end;
+_______________________________________________________________________
+
+declare
+ n number(5):=&n;
+ i number(5);
+ f number(5):=1;
+ begin
+   for i in reverse 1..n loop
+     f:=f*i;
+   end loop;
+   dbms_output.put_line('Factorial is  ' ||f);
+ end;
+_________________________________________________________________________
+
+Transaction : A transaction is a user-defined series of one or more logically relatetd statements or operations to be performe on the Oracle table data. This is also termed as a logical unit of work. It is a sequence of SQL statements that oracle treats as a single entity. A transaction begins with the first executable sql statement after a commit or rollback or connection made to the database. 
+
+Commit : A commit ends the current transactions and makes permanent any changes made during the transaciton. 
+
+rollback : A rollback statement does the exact opposite of the commit statemnet, it ends the transaction but undoes any any changes made during the transaction. Rollback is used in 
+
+1) If you have started a transaction that you cannot complete. This might occur if you have a logical problem or if there is an sql statement that does nhot execute successfully. In such cases, rollback allows you to return the starting point to allow you to take corrective action and perhaps try agin.
+
+Example Program in Transactions : 
+__________________________________
+
+
+declare
+  no number(5):=&n;
+  bas number;
+begin
+  update emp set basic=basic+5000 where empno=no;
+  select basic into bas from emp where empno=no;
+  if bas >= 20000 then
+    dbms_output.put_line('Transaction Cancelled');
+    rollback;
+  else
+    dbms_output.put_line('Transaction Committed');
+    commit;
+  end if;
+end;
+_________________________________________________________
+
+
+SAVEPOINT : It is optional and is used to rollback a partial transaction, as far as the specified savepoint.
+
+declare
+  total_sal number(9);
+begin
+  update emp set basic=basic+1000 where dept='asp';
+  savepoint s1;
+  update emp set basic=basic+5000 where dept='oracle';
+  savepoint s2;
+  select sum(basic) into total_sal from emp;
+  if total_sal >= 50000 then
+   rollback to savepoint s1;
+end if;
+  commit;
+end;
+_________________________________________________________________
+
+Error Handling in PL/SQL : 
+
+Whenever a SQL *Plus statement is executed, if it returns into an error condition, oracle returns an error number and an error message starting the oracle error. 
+
+The concept of handling the errors during the execution of program (Runtime Errors) is known as exceptional handling. 
+
+Pre-defined internal PL/SQL exceptions are there : 
+
+1) DUP_VAL_ON_INDEX : Raised when an insert or update attempts to create two rows with duplicate in col.
+
+2) NO_DATA_FOUND : Raised when the select statement returns 0 records. 
+
+3) TOO_MANY_ROWS : Raised when a select statement returns more than one row. 
+
+__________________________________________________________________________________
+
+declare
+  n1 number(5):=&n;
+  na varchar2(15):='&na';
+  dpt varchar2(15):='&dpt';
+  dsg varchar2(15):='&dsg';
+  bas number(5):=&bas;
+begin
+  insert into emp values(n1,na,dpt,dsg,bas);
+exception
+   when DUP_VAL_ON_INDEX then
+     dbms_output.put_line('No Duplicate Records it can access');
+end;
+
+_______________________________________________________________________________
+
+declare 
+  n1 number(5):=&n;
+  na varchar2(15);
+  bas number(5);
+begin
+   select name,basic into na,bas from emp where empno=n1;
+   dbms_output.put_line('Name is  ' ||na);
+   dbms_output.put_line('Basic is  ' ||bas);
+exception
+   when too_many_ROWS then
+     dbms_output.put_line('Many Record are found');
+   when no_data_found then
+     dbms_output.put_line('No Records Found');
+end;
+
+_____________________________________________________________________________
+
+You can define the user-defined exception also as 
+
+ declare 
+   more_than_value exception;
+   tsal number(5);
+ begin
+    select sum(basic) into tsal from emp;
+   if tsal >= 50000 then
+     raise more_than_value;
+   else
+     dbms_output.put_line('Nice keep it going');
+   end if;
+ exception
+     when more_than_value then
+       dbms_output.put_line('Sorry No more employee joinings please');
+ end;
+____________________________________________________________
+
+Stored Procedures : A procedure is a subprogram generally used to perform an action and to pass values. 
+
+Procedures are made up of : 
+
+1) A declarative part;
+2) An executable part and 
+3) An optional exceptional-handling part. 
+
+How Actually Oracle Create a Procedure : 
+
+When the procedure is created, Oracle automatically performs the following steps : 
+
+1) Compiles the procedure
+2) Stores the compiled procedure
+3) Stores the procedure in the database. 
+
+If you want to display the list of procedures created in the oracle, then we need the help of 
+
+select * from user_objects where object_type='PROCEDURE';
+
+syntax : 
+
+create or replace procedure proc_name {pars IN, OUT, or IN OUT} 
+Varible declarations; 
+constant declarations;
+begin
+   pl/sql subprogram body;
+exception
+   exception pl/sql block;
+end;
+
+_______________________________________________________________________________________
+create or replace procedure sums
+as
+begin
+   declare
+     a number(5):=5;
+     b number(5):=7;
+     c number(5);
+   begin
+     c:=a+b;
+     dbms_output.put_line('Sum is  ' ||c);
+  end;
+end sums;
+
+If you want to execute the procedure then you need to give
+
+exec proc_name
+
+exec sums
+
+select object_name,object_type,status from user_objects where object_type='PROCEDURE';
+___________________________________________________________________________________
+
+create procedure prcsum
+as
+begin
+   declare
+   a number(5):=&a;
+   b number(5):=&b;
+   c number(5);
+   begin
+     c:=a+b;
+     dbms_output.put_line('sum is  ' ||c);
+  end;
+end;
+
+_________________________________________________________________________
+
+Passing parameters to the procedure. 
+
+create procedure prc1(n1 number,n2 number)
+as
+  begin
+     declare
+         c number;
+     begin
+           c:=n1+n2;
+           dbms_output.put_line('Sum is  ' ||c);
+     end;
+  end;
+
+_______________________________________________________
+
+
+You can create a procedure with default parameters also as 
+
+create or replace procedure prc3(na emp.name%type:='senthil')
+as
+ begin
+  declare
+    bas number;
+    begin
+          select basic into bas from emp where name=na;
+      dbms_output.put_line('salary is  ' ||bas);
+    end;
+end;
+
+if you execute as 
+
+exec prc3 then by default senthil recoreds will come.
+
+if you execute 
+
+exec prc3('nanda') then nanda records will come. 
+
+______________________________________________________________________
+
+OUT Parameter : Specifies that the proedure passes a value for this argument back to its calling environment after execution. 
+
+If you want to return more than one value by using a procedure, then we need the help of out parameter. 
+
+Binding the value as 
+
+variable a number;
+begin
+ select max(basic) into :a from emp;
+end;
+
+__________________________________________________________________________
+
+
+FUNCTIONS : 
+
+A function is a subprogram, that which returns a value by depending on some calculation. 
+
+Syntax to create a function : 
+
+create or replace function funtion_name(args ) return datatype  
+as
+begin
+   pl/sql body
+exception
+   pl/sql
+end;
+
+ create function sums1(n number,m number) return number
+ as
+ begin
+     declare
+           c number;
+     begin
+         c:=n+m;
+        return c;
+     end;
+ end;
+
+
+___________________________________________
+
+
+create function search(no number) return varchar 
+as
+begin
+    declare 
+        na varchar2(15);
+   begin
+     select name into na from emp where empno=no;
+     return na;
+   end;
+end;
+
+____________________________________________________________________________
+
+If you want to dro a procedure or function, you need to give the command as 
+
+drop procedure proc_name
+
+drop procedure function_name 
+
+__________________________________________________________________________________
+
+
+
+
+
+
+

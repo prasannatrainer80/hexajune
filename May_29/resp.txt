@@ -1,0 +1,10 @@
+The process of data extraction and its display is calle3d Report Creation.  Oracle provides you a GUI Based report writer tool called Oracle Reports. This tools is used to developing, displaying and printing the quality reports. 
+
+Features : 
+
+1) Non-Procedural Approach : The unique non-procedural approach of Oracle reps lets you concentrate on design imporviements instead of programming. It is easy to use, fill in the form interface and powerful defaultgs make developing and maintaining even the most complex reports fast and simple. 
+
+2) Full Integration with other oracle products : Other products such as Forms, Oracle Graphics and Oracle Mail, you can include graphics and charts in a report, and send output to the other users via oracle mail. 
+
+3) Open Architecture : Enables you to incorporate user-defined routines written in COBOL, C and most other programming languages, as well as the powerful PL/SQL language. 
+

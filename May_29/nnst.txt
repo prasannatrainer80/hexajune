@@ -1,0 +1,307 @@
+                                                                     
+                                                                     
+                                                                     
+                                             
+create or replace procedure prc1(no emp.empno%type, na out emp.name%type, bas out emp.basic%typ
+
+as
+begin
+select name,basic into na,bas from emp where empno=no;
+end;
+
+To Execute this procedure....
+
+ variable na varchar2(15)
+ variable bas number
+ exec prc1(1,:na,:bas);
+
+_____________________________________________________________
+
+Function : A function is a subprogram, that which returns a value by depending on some calculation. 
+
+syntax : 
+
+create or replace function function_name return datatype
+variable declarations;
+begin
+   pl/sql subprogram;
+exception
+   exception code
+end;
+
+_____________________________________________________
+
+create or replace function evens(n number) return varchar2 as
+res varchar2(15);
+begin
+    if n mod 2 = 0 then
+      res:='even';
+    else
+      res:='odd';
+    end if;
+    return res;
+end;
+
+________________________________________________________
+
+ create or replace function fac(n number) return number as
+ f number;
+ i number;
+ begin
+     i:=1;
+     f:=1;
+     for i in 1..n
+     loop
+       f:=f*i;
+     end loop;
+     return f;
+ end;
+_____________________________________________________________
+
+create or replace function tax(n number) return number as
+begin
+    return n*0.3;
+end;
+_____________________________________________________
+
+
+CURSORS : 
+
+A cursor is a database object that which is used to fetch the data row by row and display the result. It is used to handle the querys that returns multiple rows, in addition to the data held in the cursor.  
+
+Uses of Cursors : 
+
+While SQL is the natural language, it does not have any procedural capabilities such as condition checking, looping and branching. For this oracle provides cursors concept. 
+
+It includes the Procedural code for looping and branching along with the SQL statement. If records from a record set created using a select statement are to be evaluated and processed one at a time, then the only method available by using cursors. 
+
+Steps involved in working with cursors are : 
+_____________________________________________
+
+1) Declare the cursor that specifies the SQL select statement that you want to process
+2) Open a cursor
+3) Fetch data from the cursor one row at a time. 
+4) Close the cursor. 
+
+1) Declare the cursor is 
+
+Cursor cursorName is 
+  select statment 
+
+2) Open the Cursor 
+
+  Open cursor_name
+
+3) Fetch cursorname into variable1,variable2...
+
+4) Closing the Cusor 
+
+   Close Cursor_name 
+
+1) Create a cursor to display the name and basic of emp table. 
+
+ 
+ declare
+   cursor c1 is select name,basic from emp;
+   na emp.name%type;
+   bas emp.basic%type;
+ begin
+    open c1;
+     loop
+      fetch c1 into na,bas;
+      dbms_output.put_line('Name is  ' ||na);
+      dbms_output.put_line('Basic is ' ||bas);
+      exit when na='senthil';
+    end loop;
+    close c1;
+ end;
+
+___________________________________________________________
+
+declare
+  cursor c1 is select name,basic from emp;
+  na emp.name%type;
+  bas emp.basic%type;
+  c number;
+begin
+   select count(*) into c from emp;
+   open c1;
+    loop
+     fetch c1 into na,bas;
+     dbms_output.put_line('Name is  ' ||na);
+     dbms_output.put_line('Basic is ' ||bas);
+     exit when c1%rowcount=c;
+   end loop;
+   close c1;
+end;
+_________________________________________________________________
+
+declare
+  cursor c2 is select name from emp where empno=1;
+  na emp.name%type;
+  c number;
+begin
+   select count(*) into c from emp;
+   if not c2%isopen then
+     dbms_output.put_line('Please open the cursor');
+   end if;
+   fetch c2 into na;
+   dbms_output.put_line('Name is ' ||na);
+   close c2;
+end;
+
+________________________________________________________
+
+ declare
+   cursor c2 is select name from emp where empno=1;
+   na emp.name%type;
+   c number;
+ begin
+    select count(*) into c from emp;
+    if not c2%isopen then
+      open c2;
+    end if;
+    fetch c2 into na;
+    dbms_output.put_line('Name is ' ||na);
+    close c2;
+ end;
+ /
+
+___________________________________________________________
+
+declare
+  cursor c3 is select name,basic from emp;
+   na v1.name%type;
+   bas v1.basic%type;
+begin
+   open c3;
+   loop
+      fetch c3 into na,bas;
+       dbms_output.put_line('Name is ' || na);
+       dbms_output.put_line('Basic is  ' || bas);
+       exit when na='nanda';
+   end loop;
+end;
+/
+_____________________________________________________
+
+ declare cursor c4 is
+   select name,basic from emp;
+   rec c4%rowtype;
+   c number;
+ begin
+    select count(*) into c from emp;
+    open c4;
+    loop
+    fetch c4 into rec;
+     dbms_output.put_line(rec.name);
+     exit when c4%rowcount=c;
+    end loop;
+ end;
+
+________________________________________________________
+
+A trigger is a database object that which allows you to fire automatically when any DML operation is performed. 
+
+1) A trigger can permit DML statements against a table only if they are issued
+
+2) A trigger can also be used to keep an audit trail of a table 
+3) It can be used to prevent invalid transactions.
+4) Enforce complex security authorizations. 
+
+Types of Triggers : 
+
+1) Row Triggers : A row trigger is fired each time the table is affected by the triggering statement. 
+
+2) Statement Triggers : A row trigger is fired once on behalf of the triggering statement, independent of the no.of rows the triggering statement affects.  These triggers are useful if the code in the trigger action does not depend on the data provided by the triggering statementor the rows affected. 
+
+Syntax :
+
+Create or replace trigger triggername after | before DML operation 
+  declare 
+   variable(s);
+  begin
+    pl/sql body
+  exception
+    exception block;
+end;
+
+ create or replace trigger trg1 after insert on student
+ begin
+    update student set tot=sub1+sub2+sub3;
+ end;
+
+create or replace trigger trg1 after insert on student
+begin
+   update student set tot=sub1+sub2+sub3,aveg=(sub1+sub2+sub3)/3;
+end;
+
+You can block the DML operations on table by using the triggers as
+
+
+create trigger trg2 after update on emp 
+begin
+    dbms_output.put_line('Record not updated');
+    rollback;
+end;
+
+__________________________________________
+
+combinations : 
+
+1) Before statement trigger : This trigger can be fired before the DML statement is executed. 
+
+2) After statement trigger : This will be executed after DML statement is fired. 
+
+3) Before Row Trigger : Before modifying each row affected by the triggering statement and before appropriate integrity constraints, the trigger is executed if the trigger restriction either evaluated to true or was not included. 
+
+4) After Row Trigger : Afte modifying each row affected by the triggering statement and possibly applying appropriate integiry constraint, the trigger action is executed for the current row if the trigger restrictino either evaluates to TRUE or was not included. Unlike before row triggers, after row triggers have rows locked. 
+
+ create trigger trgs after update or delete on emp for each row
+ declare
+    no number;
+    na varchar2(15);
+    bas number;
+ begin
+    if updating then
+      dbms_output.put_line('Update possible');
+   end if;
+   if deleting then
+     dbms_output.put_line('Not possible');
+     rollback;
+   end if;
+ end;
+
+________________________________________________________
+
+ create trigger trgs after update of basic on emp for each row
+ begin
+     dbms_output.put_line('Not Updated');
+     rollback;
+ end;
+
+____________________________________________________________
+
+ create trigger delrec before delete on emp for each row
+ begin
+    dbms_output.put_line('Not Possible to delete records');
+    rollback;
+ end;
+
+ __________________________________________________________
+
+ create or replace trigger trgs after update on emp
+ declare
+   bas number(7);
+ begin
+     select sum(basic) into bas from emp;
+     if bas >= 100000 then
+      raise_application_error(-20001,'Sorry Not possible');
+    else
+      dbms_output.put_line('Updated');
+    end if;
+ end;
+
+_________________________________________________________________
+
+

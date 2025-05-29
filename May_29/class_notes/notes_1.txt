@@ -1,0 +1,279 @@
+dbms_output.put_line('Welcome to PL/Sql');
+
+begin
+   dbms_output.put_line('Welcome to PL/SQL');
+end;
+
+To print the result first you run the command as
+
+set serveroutput on
+
+______________________________________________________
+
+declare
+    sname varchar2(30):='Balasubrahmani';
+begin
+    dbms_output.put_line('Student Name ' || sname);
+end;
+
+______________________________________________________
+
+declare
+   sname varchar2(30):='&sname';
+begin
+   dbms_output.put_line('Student Name is ' ||sname);
+end;
+_______________________________________________________
+
+declare
+    a number:=&a;
+    b number:=&b;
+    c number;
+begin
+    c:=a+b;
+    dbms_output.put_line('Sum is ' ||c);
+end;
+
+__________________________________________________________________
+
+declare
+   n number:=&n;
+begin
+   if n mod 2 = 0 then
+	dbms_output.put_line('Even Number...');
+   else
+	dbms_output.put_line('Odd Number...');
+   end if;
+end;
+
+_____________________________________________________________________
+
+declare
+   n number:=&n;
+begin
+   if n >= 0 then
+     dbms_output.put_line('Positive Number...');
+   else
+     dbms_output.put_line('Negative Number...');
+   end if;
+end;
+
+____________________________________________________________________
+
+declare
+   choice number:=&choice;
+   res varchar2(30);
+begin 
+    res:=case choice 
+	when 1 then 'Bala'
+	when 2 then 'Induja'
+	when 3 then 'Amal'
+	when 4 then 'Hemanth'
+        else 'Invalid'
+     end;
+    dbms_output.put_line(res);
+end;
+
+__________________________________________________________________________
+
+declare
+   nam varchar2(30);
+   basic number(9,2);
+   eno number:=&eno;
+begin
+   select Ename,sal into Nam,basic from Emp where empno = eno;
+   dbms_output.put_line('Employ Name ' ||nam);
+   dbms_output.put_line('Salary is ' || basic);
+end;
+_________________________________________________________________________
+
+create or replace procedure prcSayHello
+AS
+BEGIN
+    dbms_output.put_line('Welcome to PL/SQL programming...');
+END;
+______________________________________________________________________
+
+create or replace procedure prcTest(name varchar2)
+AS
+BEGIN
+    dbms_output.put_line('Student Name is ' ||name);
+END;
+
+__________________________________________________________________
+
+Create or Replace Procedure prcCalc(a number, b number)
+AS
+    c number;
+begin
+    c:=a+b;
+    dbms_output.put_line('Sum is ' ||c);
+end;
+
+_______________________________________________________________
+
+Create Or Replace Procedure prcEmpSearch(eno emp.empno%type)
+AS
+      nam emp.ename%type;
+      basic emp.sal%type;
+      jb emp.job%type;
+      mg emp.mgr%type;
+Begin
+     select Ename,Sal,Job,Mgr into nam, basic,jb,mg
+	from Emp where empno = eno;
+     dbms_output.put_line('Employ Name ' || nam);
+     dbms_output.put_line('Salary ' || basic);
+     dbms_output.put_line('Job ' || jb);
+     dbms_output.put_line('Manager Id ' || mg);
+End;
+
+
+To Execute the Procedure 
+
+exec proc_name
+
+exec prcSayHello
+
+Create Or Replace Procedure prcEmpSearch(eno emp.empno%type)
+AS
+      nam emp.ename%type;
+      basic emp.sal%type;
+      jb emp.job%type;
+      mg emp.mgr%type;
+Begin
+     select Ename,Sal,Job,Mgr into nam, basic,jb,mg
+	from Emp where empno = eno;
+     dbms_output.put_line('Employ Name ' || nam);
+     dbms_output.put_line('Salary ' || basic);
+     dbms_output.put_line('Job ' || jb);
+     dbms_output.put_line('Manager Id ' || mg);
+End;
+
+exec prcEmpSearch(7900);
+_________________________________________________________________
+
+Create Table Employ
+(
+   Empno number primary key,
+   name varchar2(30),
+   dept varchar2(30),
+   desig varchar2(30),
+   basic numeric(9,2)
+);
+
+Insert  into Employ values(1,'Hariharan','Java','Programmer',88322);
+Insert  into Employ values(2,'Shreyansh','Java','Developer',91113);
+Insert  into Employ values(3,'Akhila','Dotnet','Manager',89003);
+Insert  into Employ values(4,'Vaishakh','Oracle','TeamLead',89944);
+Insert  into Employ values(5,'Dilip','SAP','DBA',89773);
+
+_____________________________________________________________________
+
+create or replace procedure prcEmploySearch(eno employ.empno%type)
+AS
+     nam Employ.name%type;
+     dpt employ.dept%type;
+     dsg employ.desig%type;
+     bas employ.basic%type;
+BEGIN
+     select Name,Dept,Desig,Basic INTO nam, dpt, dsg,bas
+	from Employ WHERE Empno = eno;
+     dbms_output.put_line('Employ No ' || eno);
+     dbms_output.put_line('Employ Name ' || nam);
+     dbms_output.put_line('Department ' || dpt);
+     dbms_output.put_line('Designation ' || dsg);
+     dbms_output.put_line('Basic  ' || bas);
+END;
+
+_____________________________________________________________________
+
+Create or Replace Procedure prcEmployInsert(
+    eno employ.empno%type,
+    nam employ.name%type,
+    dpt employ.dept%type,
+    dsg employ.desig%type,
+    bas employ.basic%type
+)
+AS
+BEGIN
+    Insert into Employ(empno,name,dept,desig,basic) 
+	values(eno,nam,dpt,dsg,bas);
+END;
+
+exec prcEmployInsert(8,'Abc','Java','Expert',88822);
+_________________________________________________________________
+
+Create or Replace Procedure prcEmployUpdate(
+    eno employ.empno%type,
+    nam employ.name%type,
+    dpt employ.dept%type,
+    dsg employ.desig%type,
+    bas employ.basic%type
+)
+AS
+BEGIN
+     Update Employ set name=nam,dept=dpt,desig=dsg,basic=bas where empno=eno;   
+END;
+
+exec prcEmployUpdate(5,'Bala','PLSQL','Manager',88722);
+__________________________________________________________________________
+
+Create or Replace Procedure PrcEmployDelete(eno employ.empno%type)
+AS
+BEGIN
+    Delete from Employ where empno = eno;
+END;
+
+__________________________________________________________________________
+
+create or replace procedure prcDivision(a number, b number)
+AS
+   c number;
+begin
+    c:=a/b;
+    dbms_output.put_line('Division is ' ||c);
+Exception
+     WHEN ZERO_DIVIDE THEN
+	dbms_output.put_line('Division by zero impossible...');
+end;
+___________________________________________________________________________
+
+Create Or Replace Procedure prcEmpSearch(eno emp.empno%type)
+AS
+      nam emp.ename%type;
+      basic emp.sal%type;
+      jb emp.job%type;
+      mg emp.mgr%type;
+Begin
+     select Ename,Sal,Job,Mgr into nam, basic,jb,mg
+	from Emp where empno = eno;
+     dbms_output.put_line('Employ Name ' || nam);
+     dbms_output.put_line('Salary ' || basic);
+     dbms_output.put_line('Job ' || jb);
+     dbms_output.put_line('Manager Id ' || mg);
+Exception
+   WHEN NO_DATA_FOUND THEN
+	dbms_output.put_line('Employ Record Not Found...');
+End;
+
+_________________________________________________________________________
+
+
+Create or Replace Procedure prcEmployInsert(
+    eno employ.empno%type,
+    nam employ.name%type,
+    dpt employ.dept%type,
+    dsg employ.desig%type,
+    bas employ.basic%type
+)
+AS
+BEGIN
+    Insert into Employ(empno,name,dept,desig,basic) 
+	values(eno,nam,dpt,dsg,bas);
+Exception
+    WHEN DUP_VAL_ON_INDEX THEN
+	dbms_output.put_line('Empno ' || eno || ' Aleady Exists...');
+END;
+
+
+exec prcEmployInsert(8,'Abc','Java','Expert',88822);

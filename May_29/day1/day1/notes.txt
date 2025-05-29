@@ -1,0 +1,299 @@
+Types of Commands : 
+
+DDL commands (Data Definition Language) 
+
+create table table_name
+create user user_name
+
+truncate table table_name
+drop table table_name
+drop user user_name
+
+
+
+DML commands (Data Manipulation Language)
+
+insert, update and delete 
+
+insert table_name values(?,?,?,?)
+
+update table_name set field1=newvalue,field2=newvalue....
+
+DCL command (Data Control language)
+
+DQL Command (Data Query Language) 
+
+Data Types : 
+
+number -> Syn
+
+ number(size,dec) : number(9,2)
+
+ char -> Used to store text data. 
+
+  char(10) -> means u can store 10 chars. of data. 
+
+  varchar2(10) -> This is also used to store char. data but no redundancy will be there. 
+
+For suppose you have created char(15) and used only 7 chars then remaining 8 chars are wasted. 
+
+But if you take varchar2(15) and used only 7 chars then the remaining are added to the memory. 
+
+datetime -> Used to store the date type of information. 
+
+____________________________________________________________
+
+
+Data Definition Language : Used to represent the data w.r.t proper data types. 
+
+create command is the DDL command. 
+
+
+
+EMP(empno,name,dept,desig,basic)
+
+empno -> number
+name -> varchar2
+dept -> varchar2
+desig -> varchar2
+basic -> number 
+
+To Create a table, we need the help of Create Table command. 
+
+syntax : 
+
+create table table_name
+(
+    field1 data-type,field2 data-type,field3 data-type ....
+);
+
+eg : 
+
+ create table emp
+ (
+    empno number(5),
+    name varchar2(15),
+    dept varchar2(15),desig varchar2(15),basic number(9,2)
+ )
+
+dept(dno,dname,loc,size)
+
+dno -> number
+dname -> varchar2
+loc -> varchar2
+size -> number
+
+ create table dept
+ (
+     dno number(5),
+     dname varchar2(15),
+     loc varchar2(15),
+     cnt number(5)
+ )
+
+select command is used to list out the records of a table. 
+
+
+To retrive the list of tables, then we need the help of the following command. 
+
+
+To Display the list of attributes of a table you need to give the command as 
+
+desc table_name.
+
+Assume the table name is emp, then you need to give the command as
+
+desc emp
+
+To insert the data into the table then you need the help of insert command. 
+____________________________________________________________________________
+
+syntax : 
+
+insert into table_name values(val1,val2,val3....)
+
+Except number fields every value needs to be enclosed in single quotes(');
+
+ insert into emp values(1,'kumar','sql','senior',19443)
+
+insert into emp values(&eno,'&name','&dept','&desig',&basic);
+insert into emp values(&eno,'&name','&dept','&desig',&basic);
+
+_____________________________________________________________________________
+
+student(sno,name,sub1,sub2,sub3,tot,aveg)
+
+
+sno -> number
+name -> varchar2
+sub1 -> number
+sub2 -> number
+sub3 -> number 
+tot -> number
+aveg -> number 
+
+ create table student
+ (
+    sno number,name varchar(15),sub1 number,sub2 number,sub3 number,tot number,aveg number(9,2)
+ );
+
+create table student
+(
+   sno number,
+   name varchar2(15),
+   sub1 number,sub2 number,sub3 number,
+   tot number,
+  aveg number(9,2)
+);
+
+If you want to enter partial data, then you need to give the command as 
+
+
+insert into table_name(fields) values(.....)
+
+insert into student(sno,name,sub1,sub2,sub3) 
+values(1,'kumar',66,88,66)
+
+________________________________________________________________________________
+
+Retrieving values from the table. 
+
+If you want to retrieve the values from the table, then you need the help of 
+
+select command. 
+
+1) Display all records from emp table. 
+Ans : select * from emp;
+
+2) Display empno,name,basic from emp table 
+Ans : select empno,name,basic from emp;
+
+3) Display all records whose basic is >= 20000
+Ans :  select * from emp where basic >= 20000;
+
+
+4) Display name of employees whose basic is >= 20000
+Ans : select name from emp where basic >= 20000;
+
+5) Display name of employees whose basic is between 15000 and 21000
+Ans : select name,basic from  emp where basic between 15000 and 21000;
+
+6) Display the name of employees whose are in oracle dept. 
+Ans : select name from emp where dept='oracle';
+
+7) Display the name of employees whose dept is sql or oracle 
+Ans : select name from emp where dept in('oracle','sql');
+
+8) Display all records of emp where dept is not equal to oracle. 
+Ans :  select * from emp where dept !='oracle';
+       select * from emp where dept not in('oracle');
+
+9) Display all records of emp where basic is not between 15000 and 25000
+Ans : select * from emp where basic not between 15000 and 25000;
+
+10) Display all the names of employees whose name starts with s
+
+Ans : select * from emp where name like 's%'
+
+
+Distinct keyword is used to display the unique records. 
+
+select distinct dept from emp
+ select distinct dept from emp;
+
+count(*) Used to display the total no.of records of a table. 
+
+select count(*) from emp;
+___________________________________________________________________________________
+
+update command : This command is used to update the values of the record. This is DML command. 
+
+syntax : 
+
+update table_name set field1=newvalue,field2=newvalue {where condition}
+
+1) Update the basic as 23000 for kumar 
+Ans : update emp set basic=23000 where name='kumar';
+
+2) Update the dept as sql for namitha
+Ans : update emp set dept='sql' where name='namitha';
+
+3) Increment the basic by 1000 for all sql dept employees. 
+Ans :  update emp set basic=basic+1000 where dept='sql';
+
+4) Update the total and aveg for student table. 
+Ans : update student set tot=sub1+sub2+sub3,aveg=(sub1+sub2+sub3)/3;
+
+____________________________________________________________________________________
+
+Delete Command : This is the DML command which allows you to delete any record or all records from the table. 
+
+delete from table_name where condition 
+
+1) Delete the record from emp where empno is 8. 
+delete from emp where empno=8;
+
+If you are accidentally deleted any record, then if you want to undo the opeation then you need to give the command as 
+
+rollback 
+
+If you want to make the changes as permanent, then you need to use the command as 
+
+commit 
+
+once commit is used then the data is finalized and it never rollbacked. 
+
+delete from emp where empno between 8 and 9
+_________________________________________________________________________________________
+
+DDL commands are : create,alter,truncate,drop 
+
+DML Commands are : insert,update,delete 
+
+Diff between DDL and DML is 
+
+create is the DDL command and the syntax is 
+
+create table table_name 
+
+DML command as insert syntax is 
+
+insert into table_name 
+
+___________________________________________________________________________________
+
+Creating the Duplicate table, 
+
+You can create a duplicate table as 
+
+ create table test as select * from emp;
+
+______________________________________________________________________________
+
+If you want to delete all the records from the table, then we need the help of 
+
+truncate command. 
+
+syntax : 
+
+truncate table table_name 
+
+truncate table test
+
+for truncate no rollback. 
+
+_____________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+          

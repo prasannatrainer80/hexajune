@@ -1,0 +1,322 @@
+ declare
+  n number(5):=&n;
+  m number(5):=&m;
+  p number(5);
+ begin
+    p:=n+m;
+    dbms_output.put_line('Sum is  ' || p);
+ end ;
+
+_____________________________________________________________
+
+declare 
+ bas number(9,2);
+begin
+  select max(sal) into bas from emp;
+  dbms_output.put_line('Max salary is  ' || bas);
+end;
+
+_________________________________________________________________
+
+declare
+  nam varchar2(15):='&nam';
+  bas number(5);
+  dno number(5);
+begin
+   select sal,deptno into bas,dno from emp where ENAME=nam;
+   dbms_output.put_line('Basic is ' ||bas);
+   dbms_output.put_line('Dept NO is  ' ||dno);
+end;
+
+____________________________________________________________
+
+declare
+nam emp.ename%type:='&n';
+bas emp.sal%type;
+dno emp.deptno%type;
+begin
+  select sal,deptno into bas,dno from emp where ename=nam;
+  dbms_output.put_line('Basic is  ' || bas);
+  dbms_output.put_line('Dept No  ' ||dno);
+end;
+___________________________________________________________
+
+variable salary number;
+begin
+  select max(sal)
+   into :salary from emp;
+end;
+
+______________________________________________
+
+variable n number;
+variable p number;
+begin
+  :n:=:salary *3/100;
+  :p:=:salary *2/100;
+end;
+
+__________________________________________________________
+
+ declare
+ n number(5):=&n;
+ begin
+   if n mod 2=0 then
+    dbms_output.put_line('Even');
+   else
+    dbms_output.put_line('Odd');
+   end if;
+ end;
+
+_____________________________________________________
+
+declare
+n number(5):=&n;
+bas number(5);
+begin
+  select sal into bas from emp where empno=n;
+  if bas >= 4000 then
+    dbms_output.put_line('Good Sal');
+  else
+    dbms_output.put_line('Increment Required');
+  end if;
+end;
+
+_________________________________________________________
+
+declare
+ v_grade char(2):='&v_grade';
+ v_appraisal varchar2(20);
+begin
+   v_appraisal:=
+    case v_grade
+       when 'A' then 'Excellent'
+       when 'B' then 'GOOD'
+       when 'C' then 'Satisfactory'
+       else 'No Such Grade '
+   end;
+   dbms_output.put_line('Appraisal is ' ||v_appraisal);
+end;
+
+_________________________________________________________
+
+
+ declare
+ n number(5):=&n;
+ i number;
+ begin
+   i:=0;
+   loop
+     i:=i+2;
+     dbms_output.put_line(i);
+    exit when i > n;
+   end loop;
+ end;
+
+___________________________________
+
+ declare
+  n number:=&n;
+  i number;
+  f number;
+ begin
+   i:=1;
+   f:=1;
+   loop
+      f:=f*i;
+      i:=i+1;
+    exit when i > n;
+    end loop;
+    dbms_output.put_line('Factorial is ' ||f);
+ end;
+
+____________________________________________________________
+
+ declare
+   n number:=&n;
+   i number:=2;
+   f number:=0;
+ begin
+    while i < n loop
+     if n mod i = 0 then
+        f:=1;
+     end if;
+      i:=i+1;
+    end loop;
+    if f=1 then
+     dbms_output.put_line('Not Prime');
+    else
+     dbms_output.put_line('Prime');
+    end if;
+ end;
+______________________________________________________________
+
+ declare
+   n number(5):=&n;
+   r number:=0;
+   d number;
+ begin
+    while n <> 0 loop
+     d:=n mod 10;
+     r:=(r*10)+d;
+    n:=n/10;
+    end loop;
+      dbms_output.put_line('Reversed No is  ' ||r);
+ end;
+____________________________________________________________
+
+declare
+n number(5):=&n;
+i number(5);
+f number(5):=1;
+begin
+  for i in 1..n loop 
+    f:=f*i;
+  end loop;
+  dbms_output.put_line('Factorial is  ' ||f);
+end;
+
+___________________________________________________________
+
+ declare
+ n number(5):=&n;
+ i number(5);
+ f number(5):=1;
+ begin
+   for i in reverse 1..n loop
+     f:=f*i;
+   end loop;
+   dbms_output.put_line('Factorial is  ' ||f);
+ end;
+
+___________________________________________________________
+
+exception
+  when TOO_MANY_ROWS then
+    dbms_output.put_line('Many rows are existing');
+  when NO_DATA_FOUND then
+    dbms_output.put_line('Empno Not Found');
+
+__________________________________________________________
+
+declare
+  n number(5);
+  bas number(9,2);
+  dno number(5):=&dno;
+begin
+   select sal,empno into bas,n from emp where deptno=dno;
+   dbms_output.put_line('Basic is ' ||bas);
+   dbms_output.put_line('EMP NO is ' ||n);
+exception
+  when TOO_MANY_ROWS then
+    dbms_output.put_line('Many rows are existing');
+  when NO_DATA_FOUND then
+    dbms_output.put_line('Empno Not Found');
+end;
+_____________________________________________________________
+
+define dptname='sqlserver';
+define dno=300;
+ declare
+   e_ex1 exception;
+ begin
+   update dept set deptno=&dno where dname='&dptname';
+ if sql%notfound then
+    raise e_ex1;
+ end if;
+ exception
+   when e_ex1 then
+     dbms_output.put_line('No such dept id');
+ end;
+______________________________________________________________
+
+ declare
+   ex1 exception;
+   pragma exception_init
+   (ex1,-2292);
+ begin
+    delete from dept where deptno=&p_no;
+    commit;
+ exception
+    when ex1 then
+      raise_application_error(-2292,'Cannot remove because child records are existing');
+ end;
+_____________________________________________________________
+
+create or replace procedure sums
+as
+begin
+   declare
+     a number(5):=5;
+     b number(5):=7;
+     c number(5);
+   begin
+     c:=a+b;
+     dbms_output.put_line('Sum is  ' ||c);
+  end;
+end sums;
+
+________________________________________________
+
+create procedure prc1(n number)
+as
+begin
+    dbms_output.put_line(n);
+end prc1;
+
+________________________________________________________
+
+create procedure fact(n number)
+as
+f number:=1;
+i number:=1;
+begin
+   for i in 1..n loop
+    f:=f*i;
+   end loop;
+   dbms_output.put_line('Factorial is  ' ||f);
+end;
+
+_____________________________________________________________
+
+ create or replace procedure disp(na varchar)
+ as
+  bas number(5);
+ begin
+    select sal into bas from emp where ename=na;
+    dbms_output.put_line(bas);
+ end disp;
+
+execute as : 
+
+exec disp('FORD');
+____________________________________________________________
+
+create or replace procedure incr(no number,inc number)
+as
+begin
+   update emp set sal=sal+inc where empno=no;
+end incr;
+
+_____________________________________________________________
+
+ create procedure prc2(n1 number)
+ as
+ begin
+   declare
+    na varchar2(15);
+    bas number(9,2);
+   begin
+      select name,basic into na,bas from emp where empno=n1;
+      dbms_output.put_line('Employ Name is  '||na);
+      dbms_output.put_line('Basic is  ' ||bas);
+   end;
+ end;
+
+__________________________________________________________________
+
+You can assign the values to the default parameters also. 
+
+
+
+

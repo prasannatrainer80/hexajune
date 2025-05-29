@@ -1,0 +1,409 @@
+Alter Command : This command allows you to add new field or modify existing field or removing unwanted fields then we need the help of alter command. 
+
+syntax : 
+
+alter table table_name add column datatype
+
+alter table table_name modfiy column newvalue
+
+alter table table_name drop column columnname
+
+alter table emp add gender varchar(10);
+
+alter table emp modify name varchar2(20);
+
+alter table emp drop column gender;
+
+select rowid from emp;
+
+Deleting duplicate records 
+
+delete from x where rowid != (select max(rowid) from x a1 where x.empno=a1.empno);
+
+Data Integrity : 
+
+not null : Ensures that the field needs to be entered mandetory. By default it posses null constraint. 
+
+Data Integrity : It is imp. to ensure that the data stored in tables is complete and consistent.  The concept of maintaining consistency and completeness of data is called data integrity.  It is enforced to ensure that the data in the database is accurate, consistent and reliable.  
+
+1) Entity Integrity : Ensures that each row can be uniquely identified by an attribute called the primary key. The primary key column contains unique value in all the rows. This column cannot be NULL. 
+
+2) Domain Integrity : Ensures that only a valid range of values is stored in a column. It can be enforced by restricting the type of data.  For suppose the dept field need to contain the list of values as 'computers' or 'physics' or 'maths' then it is coming under the part of domain integrity. 
+
+3) Referential Integrity : Ensures that the values of the foreign key match the values of the corresponding primary key. 
+
+4) User-defined Integrity : Refers to a set of rules specified by a user, which do not belong to the entity, domain and referential integiry categories. 
+
+___________________________________________________________________________________
+
+EMP(empno,name,dept,desig,basic)
+
+EMPNO -> unique and no duplicate values. 
+
+name -> not null
+
+dept -> sql or oracle or dba
+
+desig -> junior or senior or head 
+
+basic -> between 1000 and 50000
+
+Giving the primary key : 
+
+You can give the primary key as 
+
+empno number constraint constraint_name primary key
+
+Not null : 
+
+name varchar2(15) not null
+
+dept : 
+
+dept varchar2(15) 
+constraint cdpt check(dept in('sql','dba','oracle')),
+
+desig varchar2(15)
+constraint cdsg check(desig in('junior','senior','head')),
+
+basic number(7,2)
+constraint cbas check(basic between 1000 and 50000)
+
+
+
+
+ create table emptest
+ (
+    empno number constraint c1 primary key,
+    name varchar2(20) not null,
+    dept varchar2(15)
+    constraint cdpt check(dept in('sql','dba','oracle')),
+    desig varchar2(15)
+    constraint cdsg check(desig in('junior','senior','head')),
+    basic number(6)
+    constraint cbas check(basic between 1000 and 50000)
+)
+
+You can add the constraints to the table by using the alter command also. 
+
+alter table empc add constraint cp1 primary key(empno);
+
+alter table empc modify name varchar2(15) not null;
+
+alter table empc add constraint cp2 check(dept in('dotnet','java','vb'));
+
+alter table empc add constraint cp3 check(basic between 1000 and 50000);
+
+_____________________________________________________________________________________
+
+
+EMP(EMPNO,NAME,DEPT,DESIG,BASIC)
+
+LEAVE(EMPNO,LAVAIL,LTAKEN,LOP)
+
+EMPNO in emp table is the primary key and where as
+
+EMPNO in leave table is foreign key.
+
+Here EMP is the parent table, where as Leave is the child table. 
+
+So, if any value needs to be entered in the table leave first it must exist in the 
+EMP table. You can specify the foreign key as by using references keyword. 
+
+But here you need to use on delete cascade option. 
+
+ create table emp 
+ (
+    empno number primary key,
+    name varchar2(15), dept varchar2(15),desig varchar2(15),basic number(8)
+ );
+
+create table leave
+(
+   empno number references emp(empno),
+   lavail number,ltaken number,lop number
+);
+
+________________________________________________________________________________
+
+Extracting the values from the two tables. 
+
+If you want to extract the values from two tables then we need the help of joins. 
+
+1) Display empno,name,basic,lop from emp,leave tables. 
+
+select emp.empno,name,basic,lop from emp join leave on emp.empno=leave.empno;
+
+2) Dispaly basic,lop where dept='asp'
+
+select name,basic,lop from emp join leave on
+emp.empno=leave.empno where dept='asp'
+
+3. Display basic,lop,cash on hand from emp and leave tables. 
+
+select basic,lop,basic-lop as "cash on hand" from emp join leave on
+emp.empno=leave.empno;
+
+-- select empno "Employ No",name "Name of Employ",basic "Salary " from emp;
+
+Joining the tables : 
+
+1) Inner Join
+2) Outer Join
+
+Inner join : It displays only the matching records from the parent and child tables only. 
+
+Outer Join : This is categorized as 
+
+1) Left outer join
+2) Right Outer join
+3) Full Outer join
+
+Left Outer Join : It displays all the records from the first table and matching records from second table. 
+
+select emp.empno,name,basic,lop,basic-lop from emp left outer join 
+leave on emp.empno=leave.empno;
+
+Right Outer Join : It displays all the records from the second table and matching records from the first table. 
+
+select emp.empno,name,basic,lop,basic-lop from emp right outer join
+leave on emp.empno=leave.empno;
+
+
+Full Outer Join : It displays all matching and unmatching records from two tables. 
+
+select emp.empno,name,basic,lop,basic-lop from emp full outer join
+leave on emp.empno=leave.empno;
+
+Order By clause : If you want to display the values by depending on any fied either in ascening or descending then we need the help of order by clause. 
+
+select * from emp order by name;
+
+select * from emp order by name desc;
+
+select name from emp order by basic desc;
+
+SQL functions are classified as 
+
+1) System functions
+2) Custom Functions 
+
+There are 4 types of System functions we have. 
+
+1) Character functions
+2) Number functions
+3) Date Functions
+4) Conversion functions. 
+
+1) Character functions : 
+
+1) Lower -> Displays the string in lower case
+2) Upper -> displays the string in upper case
+3) Initcap -> Used to display in sentence case. 
+
+
+select lower('KUMAR') FROM DUAL
+
+select lower(name) from emp
+
+select upper('kumar') from dual
+
+select upper(name) from emp
+
+
+select lower(name),upper(name),initcap(name) from emp;
+
+
+Length : Used to display the length of the string. 
+
+select name,length(name) from emp;
+
+Concat : Used to concatenate two strings. 
+
+select concat('kiran','kumar') from dual
+
+select name || '  ' || dept from emp;
+
+select concat('kiran',' kumar') from dual;
+
+substr : Used to display the part of a given string. 
+
+syntax : substr(string,startno,no.ofchars)
+
+select substr('kirankumar',2,3) from dual 
+
+ensures from the 2nd char. it will print 3 chars. 
+
+Instr -> Used to search from a string. 
+
+select instr('kumar','u') from dual
+
+LPAd : Pads the character value right-justified to a total width of n char positions.
+
+RPAD : Pads the char value left-justified to a total width of n char positions. 
+
+select lpad(basic,10,'*') from emp;
+ select rpad(basic,10,'*') from emp
+
+Replace : Searches a text expression for a character string and if found replaces it wit a specified replacement string. 
+
+select replace('kirankumar','kiran','suresh') from dual
+
+
+Number Functions : 
+
+Number functions accept numberic input and return numeric values. 
+
+1) abs -> Returns the absolute value. 
+
+ select abs(-12) from dual
+
+2) mod -> Returns the remainder 
+
+ select mod(5,2) from dual;
+
+3) Trunc : This functions truncates the column, expression or value to n decimal places.
+
+select trunc(45.923,2) from dual;
+
+select trunc(45.999,2) from dual;
+
+ select trunc(45.923,2) from dual;
+
+select trunc(1245.923,-1) from dual
+
+select trunc(1245.923,-2) from dual
+
+select trunc(1245.923,-3) from dual
+
+select trunc(1245.923,-4) from dual
+
+ROUND Function : It rounds the column, expression or value to n decimal places. If the second arg is 0 or missiong the vlaue is rounded to zero decimal places. 
+
+select round(1245.987,2) from dual;
+select round(1988.978,-1) from dual;
+select round(1988.978,-2) from dual;
+______________________________________________________________________________
+
+Aggregate Functions : 
+
+1) Max -> Used to display the max. in the list. 
+
+select max(basic) from emp;
+
+2) MIN -> Used to display the min. basic
+
+select min(basic) from emp;
+
+3) sum -> Displays the sum of values. 
+
+select sum(basic) from emp;
+
+4) Avg -> Displays the average basic. 
+
+select avg(basic) from emp;
+
+5) count -> Displys the tot. no.
+
+select count(empno) from emp;
+
+_______________________________________________________________________________
+
+
+Date Functions :
+
+1) SYSDATE -> Used to display the today's date. 
+
+select sysdate from dual;
+
+ 2) Month_Between -> Used to display the difference betwen dates in terms of months. 
+
+select months_between(sysdate,'01-mar-2005') from dual;
+
+3) ADD_MONTHS -> Used to add no.of months to the specific date. 
+
+ select add_months('01-mar-2008',3) from dual;
+
+ select add_months(sysdate,5) from dual;
+
+4) NEXT_DAY : Next Day of the Date Specified. 
+
+select next_day(sysdate,'WEDNESDAY') from dual
+select next_day(sysdate,'MONDAY') from dual;
+
+SELECT SYSDATE-TO_DATE('03-09-1980','dd-mm-yyyy') from dual;
+SELECT (SYSDATE-TO_DATE('03/09/1980','DD/MM/YYYY'))/365 FROM DUAL
+SELECT (SYSDATE-TO_DATE('03/09/1980','DD/MM/YYYY'))/30 FROM DUAL
+_________________________________________________________________________________
+
+Group by clause : If you want to display the summary reports, then we need the help of Group by clause.  This work with aggregate functions only.
+
+Ensure if you want to display how much salary u need to pay to each dept, then we need the help of Group By clause. 
+
+select dept,sum(basic) from emp group by dept
+
+______________________________________________________________________________
+
+
+Subquery : 
+
+1) Display the max. salary
+
+select max(basic) from emp;
+
+2) Display the name of the person who is getting max salary. 
+
+select name from emp where basic=(select max(basic) from emp);
+
+3) Display the second max. basic from emp table. 
+
+select max(basic) from emp where basic < (select max(basic) from emp);
+
+4) Display the 3rd max. salary. 
+
+select max(basic) from emp where basic < (select max(basic) from emp where basic < (select max(basic) from emp))
+
+
+
+If subquery returns more than one value, then we need the help of 
+
+ALL and ANY operators. 
+
+ANY operator compare value to each value returned by the subquery.
+
+ALL Operator compare value to every value retured by the subquery. 
+
+< ANY means less than the max. 
+
+> ANY means more tha n the min.
+
+< ALL means less the maximum 
+
+> ALL means more than the minimum. 
+
+______________________________________________________________
+
+select empno name from emp where empno < any(select empno from leave)
+
+select empno name from emp where empno < all(select empno from leave)
+
+______________________________________________________________________________
+
+Display the name of the person who never took any leave means empno need to exist in the emp table but not in the leave table. { This is called difference operator }.
+
+select name from emp where empno <> all(select empno from leave);
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+

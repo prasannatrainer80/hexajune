@@ -1,0 +1,344 @@
+set serveroutput on
+
+dbms_output.put_line('Welcome');
+
+______________________________________
+
+begin
+   dbms_output.put_line('Welcome to PL/SQL');
+end;
+
+________________________________________________
+
+declare
+   sname varchar2(30):='Arun';
+begin
+   dbms_output.put_line('Name is ' || sname);
+end;
+___________________________________________________________
+
+declare
+   sname varchar2(30):='&sname';
+begin
+   dbms_output.put_line('Name is ' || sname);
+end;
+
+___________________________________________________________
+
+
+declare 
+    a number:=&a;
+    b number:=&b;
+    c number;
+begin
+    c:=a+b;
+    dbms_output.put_line('Sum is  ' || c);
+end;
+
+__________________________________________________________________
+
+declare
+   n number:=&n;
+begin
+   if n >= 0 then
+     dbms_output.put_line('Positive No...');
+   else
+     dbms_output.put_line('Negative No...');
+   end if;
+end;
+
+_____________________________________________________________
+
+
+select Ename,Sal from Emp where Empno=7900;
+
+declare
+    eno number:=&eno;
+    nam varchar2(30);
+    basic numeric(9,2);
+begin
+   select Ename, Sal into Nam, Basic from Emp where empno=eno;
+   dbms_output.put_line('Name is  ' || nam);
+   dbms_output.put_line('Basic is  ' || basic);
+end;
+
+________________________________________________________________________
+
+
+declare
+    eno emp.empno%type:=&eno;
+    nam emp.ename%type;
+    basic emp.sal%type;
+begin
+   select Ename, Sal into Nam, Basic from Emp where empno=eno;
+   dbms_output.put_line('Name is  ' || nam);
+   dbms_output.put_line('Basic is  ' || basic);
+end;
+
+__________________________________________________________________
+
+Create Table Employ
+(
+   Empno number primary key,
+   name varchar2(30),
+   dept varchar2(30),
+   desig varchar2(30),
+   basic numeric(9,2)
+);
+
+Insert  into Employ values(1,'Hariharan','Java','Programmer',88322);
+Insert  into Employ values(2,'Shreyansh','Java','Developer',91113);
+Insert  into Employ values(3,'Akhila','Dotnet','Manager',89003);
+Insert  into Employ values(4,'Vaishakh','Oracle','TeamLead',89944);
+Insert  into Employ values(5,'Dilip','SAP','DBA',89773);
+
+
+____________________________________________________________
+
+declare
+   a number:=&a;
+   b number:=&b;
+   c number;
+begin
+   c:=a/b;
+   dbms_output.put_line('Division Value is  ' ||c);
+Exception
+  WHEN ZERO_DIVIDE THEN
+    dbms_output.put_line('Division by zero impossible...');
+end;
+
+_______________________________________________________________________
+
+
+declare
+    eno emp.empno%type:=&eno;
+    nam emp.ename%type;
+    basic emp.sal%type;
+begin
+   select Ename, Sal into Nam, Basic from Emp where empno=eno;
+   dbms_output.put_line('Name is  ' || nam);
+   dbms_output.put_line('Basic is  ' || basic);
+Exception
+   WHEN NO_DATA_FOUND THEN
+     dbms_output.put_line('No Employ Record Found...');
+end;
+______________________________________________________________________
+
+Create or replace procedure prcSayHello
+AS
+BEGIN
+   dbms_output.put_line('Welcome to Stored Procedures...');
+END;
+
+-- To Execute Stored Procedure
+
+Exec prcSayHello;
+
+____________________________________________________________
+
+create or replace procedure prcCalc(a number,b number)
+as
+begin
+    declare
+	c number;
+    begin
+       c:=a+b;
+       dbms_output.put_line('Sum is  ' || c);
+    end;
+end;
+
+-- for execution
+
+exec prcCalc(12,5);
+
+__________________________________________________________
+
+Create or Replace procedure prcEmpInsert(
+	eno employ.empno%type,
+        nam employ.name%type,
+        dpt employ.dept%type,
+        dsg employ.desig%type,
+        bas employ.basic%type
+)
+AS
+BEGIN
+     Insert into Employ values(eno,nam,dpt,dsg,bas);
+Exception
+	WHEN DUP_VAL_ON_INDEX THEN
+	   dbms_output.put_line('Employ No Already Exists...');
+END;
+
+-- To Execute
+
+exec prcEmpInsert(8,'Heera','Java','Programmer',88322);
+
+Create or replace Procedure prcEmploySearch(eno employ.empno%type)
+AS
+BEGIN
+	declare
+	  nam employ.name%type;
+          dpt employ.dept%type;
+          dsg employ.desig%type;
+          bas employ.basic%type;
+        begin
+	    Select name, Dept, Desig, Basic into Nam, Dpt, Dsg, Bas
+		from Employ where Empno=eno;
+	    dbms_output.put_line('Name  ' ||nam);
+	    dbms_output.put_line('Department ' ||dpt);
+	    dbms_output.put_line('Designation ' || dsg);
+	    dbms_output.put_line('Basic ' || bas);
+	Exception
+	   WHEN NO_DATA_FOUND THEN
+		dbms_output.put_line('*** Employ Record Not Found ***');		
+	end;
+END;
+
+Exec PrcEmploySearch(1);
+
+create or replace procedure prcAccountUpdate
+(
+Accno Accounts.AccountNo%type,
+Fname Accounts.FirstName%type,
+Lname Accounts.LastName%type,
+Cit Accounts.City%type,
+Stat Accounts.State%type,
+Amt Accounts.Amount%type,
+Cf Accounts.CheqFacil%type,
+Actype Accounts.AccountType%type
+)
+AS
+BEGIN
+  Update Accounts set FirstName=NVL2(Fname,Fname,FirstName),
+                      LastName=NVL2(Lname,Lname,LastName),
+                      City=NVL2(Cit,Cit,City),
+                      State=NVL2(Stat,Stat,State),
+                      Amount=NVL2(Amt,Amt,Amount),
+                      CheqFacil=NVL2(cf,cf,CheqFacil),
+                      AccountType=NVL2(Actype,Actype,AccountType)
+       WHERE AccountNo=Accno;                 
+END;
+exec prcAccountUpdate(1,null,null,'Bangalore','KA',null,null,null);
+
+Create Table Trans
+(
+   AccountNo number,
+   TranAmount numeric(9,2),
+   TranType varchar(5),
+   TranDate date default sysDate
+);
+
+create or replace procedure prcAmountDeposit(AccNo Accounts.AccountNo%type,
+				DepAmt Accounts.Amount%type) 
+AS
+BEGIN 
+	Update Accounts set Amount=Amount+DepAmt WHERE AccountNo=Accno;
+	Insert into Trans(AccountNo,TranAmount,TranType)
+			values(AccNo,DepAmt,'C');
+END;				
+
+exec prcAmountDeposit(1,1000);
+
+Create Or replace Procedure PrcAmountWithdraw(AccNo Accounts.AccountNo%type,
+				WithAmt Accounts.Amount%type)
+AS
+BEGIN 
+    declare 
+      Amt Accounts.Amount%type;
+	begin 
+		select Amount into Amt from Accounts where accountNo=accno;
+		if(amt-withAmt >= 1000) then
+			Update Accounts set Amount=Amount-WithAmt WHERE AccountNo=Accno;
+	Insert into Trans(AccountNo,TranAmount,TranType)
+			values(AccNo,WithAmt,'D');
+		else 
+			dbms_output.put_line('Insufficient Balance');
+		end if;
+	end;
+END;
+
+exec PrcAmountWithdraw(1, 5000);
+
+create or replace function fnFact(n number) return number
+as
+begin
+     declare i number;
+	     f number;
+     begin
+	f:=1;
+        for i in 1..n 
+        loop
+	   f:=f*i;
+        end loop;
+	return f;
+     end;
+end;
+
+select fnFact(5) from dual;
+
+Create or replace function fnTax(salary number) return number
+as
+begin
+     return salary*0.03;
+end;
+select empno, ename, sal, fntax(sal) from Emp;
+
+create or replace function fnAgent(mstatus number) return varchar2
+as
+begin
+     if mstatus=0 then
+          return 'Unmarried';
+     else
+          return 'Married';
+     end if;
+end;
+
+select AgentId,FirstName,MaritalStatus,FnAgent(Maritalstatus) from Agent;
+
+create or replace function fnGenerateAccountNo return number
+as
+accno number;
+begin
+    select case when max(AccountNO) IS NULL then 1 else 
+         max(accountNo)+1 end into accno from Accounts;
+    return accno;
+end;    
+
+create or replace procedure prcAccountCreate
+(
+Fname Accounts.FirstName%type,
+Lname Accounts.LastName%type,
+Cit Accounts.City%type,
+Stat Accounts.State%type,
+Amt Accounts.Amount%type,
+Cf Accounts.CheqFacil%type,
+Actype Accounts.AccountType%type	
+)
+AS
+BEGIN
+    declare 
+      accno number;
+    begin
+        select fnGenerateAccountNo() into accno from dual; 
+        Insert into Accounts(AccountNo,FirstName,LastName,City,State,Amount,
+	   CheqFacil,AccountType) values(accno,Fname,Lname,Cit,Stat,Amt,Cf,Actype);
+       dbms_output.put_line('Account Created Successfully...');
+	EXCEPTION
+	   WHEN DUP_VAL_ON_INDEX THEN 
+	     dbms_output.put_line('Account No Already exists...Please change the Code...');
+    end;
+END;
+
+
+create or replace function fnSearchAccount(Accno Accounts.AccountNo%type) return number
+as
+amt accounts.Amount%type;
+res number;
+begin 
+    select amount into amt from accounts where accountNo=accno;
+    res:=0;
+    return res;
+Exception 
+    WHEN NO_DATA_FOUND THEN
+    res:=1;
+    return res;
+end;
