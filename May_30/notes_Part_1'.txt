@@ -1,0 +1,310 @@
+Trasactions
+
+ A transaction is group of statements to be executed as a single unit. 
+
+Trasaction contains 4 properties known as 
+
+ACID 
+
+Atomocity : Either all the operations are performed on none of them are performed. 
+
+Consistency : Ensure, once transaction finishes consistent data needs to be shared to all people who are accessing database.
+
+3) Isolation : We are not supposed to see the intermediate state of current transaction.
+
+4) Durability : Data needs to be remained permanently in the system in long time. 
+
+In Oracle, we need to implement transactions, because we need to finalize the changes or not. Because if any transaction happens it is not finalized state, if you want to cancel that, then we need to use command as 
+
+rollback
+
+If you want to make it finalize, then we need to use command as commit
+
+Let us create a stored procedure with transactions as
+
+update the basic by incr value, for particular employ. 
+after update if basic crosses 90000 then cancel the transaction,
+if basic less than 90000 then commit the transaction. 
+
+create or replace procedure prcEmployUpdate(
+   eno employ.empno%type,
+   inc number
+)
+AS
+    sal number;
+BEGIN
+    Update Employ set basic=basic+inc where empno = eno; 
+    select basic into sal from Employ where empno = eno;
+    if (sal >= 90000) then
+        rollback;
+        dbms_output.put_line('Trasaction Cancelled...');
+    else
+       commit;
+       dbms_output.put_line('Trasaction success...');
+    end if;
+Exception
+    WHEN NO_DATA_FOUND THEN
+      dbms_output.put_line('Employ No Not Found...');
+    WHEN OTHERS THEN
+      dbms_output.put_line('Unknown Error...');
+END;
+
+SAVEPOINT : It is optional and is used to rollback a partial transaction, as far as the specified savepoint.
+
+Create or Replace procedure prcEmploySp 
+AS
+  total_sal number;
+BEGIN
+   Update Employ set Basic = basic + 3000 where dept='Dotnet';
+    savepoint s1;
+    Update Employ set basic = basic + 1000 where dept='Java';
+    savepoint s2;
+     select sum(basic) into total_sal from Employ where dept='Java';
+    dbms_output.put_line(total_sal);
+    if total_sal >= 250000 then
+         rollback to savepoint s1;
+         dbms_output.put_line('Dotnet got increment Java Did not get');
+	 commit;
+    else 
+        dbms_output.put_line('Both Got Increment...');
+    end if;
+    commit;
+END;
+
+
+I
+declare
+  total_sal number(9);
+begin
+  update employ set basic=basic+1000 where dept='Dotnet';
+  savepoint s1;
+  update employ set basic=basic+5000 where dept='Java';
+  savepoint s2;
+  select sum(basic) into total_sal from employ;
+  if total_sal >= 250000 then
+   rollback to savepoint s1;
+end if;
+  commit;
+end;
+_______________________________________________________________________
+
+Cursors
+
+create or replace procedure prcCursorShow 
+AS
+BEGIN
+declare 
+   cursor cursor_employ is select empno,Name,Dept,Desig,Basic 
+   from Employ;
+   eno employ.empno%type;
+   nam employ.name%type;
+   dpt employ.dept%type;
+   dsg employ.desig%type;
+   bas employ.basic%type;
+   cnt number;
+begin
+    select count(*) into cnt from Employ;
+    open cursor_employ;
+    loop
+     fetch cursor_employ into eno,nam,dpt,dsg,bas;
+      dbms_output.put_line('--------------------------------');
+      dbms_output.put_line('Employ No ' ||eno);
+      dbms_output.put_line('Name ' ||nam);
+      dbms_output.put_line('Department ' ||dpt);
+      dbms_output.put_line('Designation ' ||dsg);
+      dbms_output.put_line('Salary ' ||bas);
+      dbms_output.put_line('--------------------------------');
+     exit when cursor_employ%rowcount = cnt;
+    end loop;
+    close cursor_employ;
+end;
+END;
+
+______________________________________________________________________
+
+create or replace procedure prcCursorShow 
+AS
+BEGIN
+declare 
+   cursor cursor_employ is select empno,Name,Dept,Desig,Basic 
+   from Employ;
+   eno employ.empno%type;
+   nam employ.name%type;
+   dpt employ.dept%type;
+   dsg employ.desig%type;
+   bas employ.basic%type;
+begin
+    open cursor_employ;
+    loop
+     fetch cursor_employ into eno,nam,dpt,dsg,bas;
+      dbms_output.put_line('--------------------------------');
+      dbms_output.put_line('Employ No ' ||eno);
+      dbms_output.put_line('Name ' ||nam);
+      dbms_output.put_line('Department ' ||dpt);
+      dbms_output.put_line('Designation ' ||dsg);
+      dbms_output.put_line('Salary ' ||bas);
+      dbms_output.put_line('--------------------------------');
+     exit when nam='Akhila';
+    end loop;
+    close cursor_employ;
+end;
+END;
+
+___________________________________________________________________
+
+Create or replace procedure prcEmployShowAll
+AS
+BEGIN
+   Declare
+	cursor cursor_employ is select empno, name, dept, desig, basic from Employ;
+	eno employ.empno%type;
+	nam employ.name%type;
+	dpt employ.dept%type;
+	dsg employ.desig%type;
+	bas employ.basic%type;
+   begin
+      Open Cursor_Employ;
+      loop
+	fetch cursor_employ into eno, nam, dpt, dsg, bas;
+      dbms_output.put_line('Employ No ' ||eno);
+      dbms_output.put_line('Name ' ||nam);
+      dbms_output.put_line('Department ' ||dpt);
+      dbms_output.put_line('Designation ' ||dsg);
+      dbms_output.put_line('Salary ' ||bas);
+      dbms_output.put_line('--------------------------------');
+        exit when cursor_employ%NOTFOUND;
+      end loop;
+   end;
+END;
+_____________________________________________________________________________
+
+
+Create or replace procedure prcEmployShowAll
+AS
+BEGIN
+   Declare
+	cursor cursor_employ is select empno, name, dept, desig, basic from Employ;
+   begin
+      for rec in cursor_employ 
+      loop
+           dbms_output.put_line('Employ No ' || rec.empno);
+	   dbms_output.put_line('Employ Name ' || rec.name);
+	   dbms_output.put_line('Department  ' || rec.dept);
+	   dbms_output.put_line('Designation ' || rec.desig);
+	   dbms_output.put_line('Basic  ' || rec.basic);
+	   dbms_output.put_line('-------------------------');
+      end loop;
+   end;
+END;
+
+________________________________________________________________________
+
+
+Create or replace procedure prcEmployShowAll
+AS
+BEGIN
+   Declare
+	cursor cursor_employ is select empno, name, dept, desig, basic from Employ;
+   begin
+      for rec in cursor_employ 
+      loop
+           if (rec.dept ='Java') then
+	      update Employ set basic = basic+3000;
+	      dbms_output.put_line('Java Records incremented...');
+           end if;
+           dbms_output.put_line('Employ No ' || rec.empno);
+	   dbms_output.put_line('Employ Name ' || rec.name);
+	   dbms_output.put_line('Department  ' || rec.dept);
+	   dbms_output.put_line('Designation ' || rec.desig);
+	   dbms_output.put_line('Basic  ' || rec.basic);
+	   dbms_output.put_line('-------------------------');
+	   commit;
+      end loop;
+   end;
+END;
+_______________________________________________________________________
+
+Create or replace procedure prcEmployShowAll
+AS
+BEGIN
+   Declare
+	cursor cursor_employ is select empno, name, dept, desig, basic from Employ where dept='Java';
+	eno employ.empno%type;
+	nam employ.name%type;
+	dpt employ.dept%type;
+	dsg employ.desig%type;
+	bas employ.basic%type;
+   begin
+      Open Cursor_Employ;
+      loop
+	fetch cursor_employ into eno, nam, dpt, dsg, bas;
+      dbms_output.put_line('Employ No ' ||eno);
+      dbms_output.put_line('Name ' ||nam);
+      dbms_output.put_line('Department ' ||dpt);
+      dbms_output.put_line('Designation ' ||dsg);
+      dbms_output.put_line('Salary ' ||bas);
+      dbms_output.put_line('--------------------------------');
+        exit when cursor_employ%NOTFOUND;
+      end loop;
+   end;
+END;
+
+Create Table Login
+(
+   username varchar(30) Primary Key,
+   passcode varchar(30)
+);
+
+Insert into Login(UserName,Passcode) values('Ayush','Tripathi');
+Insert into Login(UserName,passCode) values('Hemanth','Bala');
+Insert into Login(Username,Passcode) values('Nikhitha','Balabhadra');
+
+-- Write a code function to check username and password are correct or not
+
+create or replace function logincheck(uname login.username%type,
+pwd login.passcode%type) return number
+AS
+   cnt number;
+BEGIN
+     select count(*) into cnt from Login where Username=uname AND
+		passcode=pwd;
+     return cnt;
+END;
+
+Create or replace procedure prcLoginCheck(
+uname login.username%type,pwd login.passcode%type) 
+AS
+    cnt number;
+BEGIN
+    select logincheck(uname,pwd) into cnt from dual;
+    if (cnt=1) then
+      dbms_output.put_line('Correct Credentials...');
+    else
+      dbms_output.put_line('Invalid Credentials...');
+    end if;
+END;
+
+_________________________________________________________________
+
+Create or replace procedure prcAccountShow
+AS
+BEGIN
+declare
+ cursor cursor_acc is select AccountNo,FirstName,LastName,City,State,Amount from Accounts;
+begin
+    for rec in cursor_acc   
+    loop
+	dbms_output.put_line('Account No ' || rec.accountNo);
+	dbms_output.put_line('First Name ' || rec.firstname);
+	dbms_output.put_line('Last Name ' || rec.lastName);
+	dbms_output.put_line('City ' || rec.city);
+	dbms_output.put_line('State ' || rec.state);
+	dbms_output.put_line('Amount ' || rec.amount);
+	dbms_output.put_line('--------------------------');
+    end loop;
+end;
+END;
+_____________________________________________________________________________
+
+Triggers
+
