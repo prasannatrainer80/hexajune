@@ -1,0 +1,140 @@
+Create table Student
+(
+    Sno number primary key,
+    name varchar2(30),
+    sub1 number,
+    sub2 number,
+    sub3 number,
+    total number,
+    aveg number(9,2)
+);
+
+create or replace trigger trgStudentIn AFTER INSERT ON Student 
+BEGIN
+    Update Student Set total = sub1+sub2+sub3, aveg = (sub1+sub2+sub3)/3;
+END;
+
+Insert into Student(sno,name,sub1,sub2,sub3) values(1,'Santhana',
+56,88,66);
+commit;
+
+Insert into Student(sno,name,sub1,sub2,sub3) values(2,'Sandiya',
+77,88,66);
+Insert into Student(sno,name,sub1,sub2,sub3) values(3,'Santhana',
+56,88,66);
+Insert into Student(sno,name,sub1,sub2,sub3) values(4,'Santhana',
+56,88,66);
+
+Create Table EmployPayRoll
+(
+    Empno Number Primary Key,
+    Name varchar2(30),
+    Basic number,
+    Hra Number, 
+    Da Number, 
+    Ta Number, 
+    Tax Number, 
+    Pf number,
+    gross number, 
+    netpay number
+);
+
+Create Or Replace Trigger trgEmployPayroll AFTER INSERT ON EmployPayRoll
+BEGIN
+     Update EmployPayroll set Hra = basic * 0.003, Da = Basic * 0.0012,
+		ta = basic * 0.0011;
+     Update EmployPayroll SET Tax = Basic * 0.002, Pf = Basic * 0.12;
+     Update EmployPayroll set Gross = Basic + Hra + Da + ta;
+     Update EmployPayroll set NetPay = Gross - tax - pf;
+END;
+
+_________________________________________________________________
+
+Create Table Customer
+(
+   Id INT Primary Key,
+   Name varchar2(30),
+   City varchar2(30),
+   Amount number
+);
+
+
+Insert into Customer(ID,Name,City,Amount) values(1,'Raguram','Hyderabad',99325.33);
+Insert into Customer(ID,Name,City,Amount) values(2,'Nivetha','Delhi',98842.33);
+Insert into Customer(ID,Name,City,Amount) values(3,'Prasanna','Chennai',90022.33);
+Insert into Customer(ID,Name,City,Amount) values(4,'Shwetha','Hyderabad',88842.33);
+Insert into Customer(ID,Name,City,Amount) values(5,'Shaik','Pune',89324.33);
+
+ Create or replace trigger trgCustomerIns AFTER Update on Customer
+	for each row
+   BEGIN
+        Insert into CustomerBackup(Id,name,City,Amount) values(:old.id,:old.name,:old.city,:old.amount);
+    end;
+
+ Create or replace trigger trgCustomerDelete AFTER DELETE ON Customer
+    for each row
+ BEGIN
+       Insert into CustomerBackup(Id,Name,City,Amount) 
+	values(:old.id,:old.name,:old.city,:old.amount);
+ End;
+
+
+Create Table Asset
+(
+   AssetId number primary key,
+   AssetName varchar2(30),
+   AssetType varchar2(30),
+   cost number(9,2),
+   status varchar2(30) default 'AVAILABLE'
+);
+
+drop table AssetHistory;
+
+Create Table AssetHistory
+(
+   AssetId number,
+   AssetName varchar2(30),
+   AssetType varchar2(30),
+   cost number(9,2),
+   status varchar2(30),
+   opDate Date default sysdate,
+   description varchar2(30)
+);
+
+Create or replace trigger trgAssertAdd AFTER INSERT ON Asset
+for each row
+BEGIN
+     Insert into AssetHistory(AssetId,AssetName,AssetType,Cost,
+	status,Description) values(:new.assetId,:new.assetName,:new.assetType,
+		:new.cost,:new.status,'INSERT OP');
+END;
+
+Insert into Asset(AssetId,AssetName,AssetType,Cost) values(1,'Laptop','System',80000);
+
+Insert into Asset(AssetId,AssetName,AssetType,Cost)
+values(2,'Mobile','Nokia',29000);
+
+Insert into Asset(AssetId,AssetName,AssetType,Cost)
+values(3,'Marker','Camlin',120);
+
+Insert into Asset(AssetId,AssetName,AssetType,Cost)
+values(4,'NAD Card','KT Project',99999);
+
+Create or replace trigger trgAssetUpdate AFTER Update On Asset
+For Each Row
+BEGIN
+     Insert into AssetHistory(AssetId,AssetName,AssetType,Cost,
+	status,Description) values(:old.assetId,:old.assetName,
+		:old.assetType,:old.cost,:old.status,'Update OP');
+END;
+
+Update Asset set AssetName='BlackBoard',AssetType='Teaching',Cost=888
+WHERE AssetId=3;
+
+Create or replace trigger trgAssetDelete AFTER Delete On Asset
+For Each Row
+BEGIN
+     Insert into AssetHistory(AssetId,AssetName,AssetType,Cost,
+	status,Description) values(:old.assetId,:old.assetName,
+		:old.assetType,:old.cost,:old.status,'Delete OP');
+END;
