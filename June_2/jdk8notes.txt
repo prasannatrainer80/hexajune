@@ -1,0 +1,42 @@
+interface : An interface contains method declaration, and the implementation can be done in the corresponding class, you can add more than one interface to the particular class. 
+
+Lambda expression is a new feature in java provides a clear and concise way
+to represent one method interface using an expression. It is very useful in collection library, it helps to iterate, filter and extract data from collection. 
+
+Why to use lambda expression
+
+(i) To provide implementation for interface
+
+(ii) less coding
+
+java lambda expression syntax
+
+(argument-list) -> {body}
+
+Java Lambda expression consists of 3 components
+
+(i) Argument-list : It can be empty or non-empty as well
+
+(ii) Arrow-Token : Used to link arguments-list and body of expression
+
+(iii) Body : It contains expressions and statements for lambda expression.
+
+An interface that which contains only one abstract method known as 
+
+2) Functional Interface : If an interface is having only one method then that would be declared as Functional Interface. 
+
+You can define functional interface as 
+
+@FunctionalInterface 
+
+foreach() Method : This method used to iterate records and print 
+them. 
+
+Filter : In Java8 we have concept called Streams, which allows you to filter/sort and perform calculations on the given data. 
+
+Stream is the class that which allows you to perform the operations. 
+
+Stream<Employ> object = list.stream.filter(x -> condition);
+
+
+

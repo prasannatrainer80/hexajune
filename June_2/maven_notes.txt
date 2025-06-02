@@ -1,0 +1,93 @@
+Maven is build tool, that which takes care of
+
+-> External jar files
+
+-> Plugins
+
+-> Company Profile info
+
+-> Coding standards etc...
+
+before maven, if you want to configure external tools,
+we need to add jar files to the given project. 
+
+but that is highly tedious process as day by day the version
+changes and lot of new plugins to be added the project 
+becomes more heavier. 
+
+To avoid this, we need the help of maven. 
+
+Maven project is a build tool, that which takes care of
+
+1) Dependencies (means any external jar files to be added)
+
+2) plugins (Some companies will have built-in plugins to be 
+configured)
+
+3) Policy files to be added to the project. 
+
+To create maven-project, 
+
+for console applications, use the filter as
+
+java-quickstart
+
+for web application, please use filter as
+
+quickstart-web
+
+*** Maven creates the project structure clearly, as 
+which code write to where and where to write test cases ***
+
+Maven contains the properties as
+
+groupId : means to which category it belongs like (junit or 
+jdbc or MySQL etc)
+
+artifactId : This is the name of the project we are using. 
+
+The heart for maven project is
+
+pom.xml which contains all the dependencies to be added for 
+the given project. 
+You can add the external jar files to the pom.xml file as
+by adding Dependencies. 
+
+For example, if you want to deal with MySQL, then 
+ <dependency>
+<groupId>mysql</groupId>
+<artifactId>mysql-connector-java</artifactId>
+<version>8.0.15</version>
+</dependency>
+
+add the dependency after 17 line if it is console app
+
+Now, sameway if you want to add Lombok dependency, then 
+
+Maven will have 3 repositories knwon as
+
+1) Local Repo : It is the repository which is there in ur users
+folder named as .m2 
+
+2) Central Repo : It is there in the env.
+https://repo.maven.apache.org/maven2/archetype-catalog.xml
+
+3) Remote Repo : It is coming from remote site (internet)
+
+At first, the repository will be checked in local repo.
+if it is not present, checks in central else in remote. 
+
+JavaNewFeatures
+
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.4</version>
+    <scope>provided</scope>
+</dependency>
+
+
+
+
+
+Once you add the dependency, 
