@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="person1" class="com.java.spr.Person">
+		<property name="id" value="1" />
+		<property name="name" value="SivaSuriya" />
+		<property name="jobDetails">
+			<bean class="com.java.spr.JobDetails">
+				<property name="job" value="SWE" />
+				<property name="company" value="Hexaware" />
+				<property name="location" value="Chennai" />
+			</bean>
+		</property>
+		<property name="family">
+			<bean class="com.java.spr.Family">
+				<property name="city" value="Erode" />
+				<property name="state" value="TN" />
+			</bean>
+		</property>
+	</bean>
+</beans>
