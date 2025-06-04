@@ -1,0 +1,34 @@
+Create Table Restaurant
+(
+    restaurantId number primary key,
+    restaurantName varchar2(30),
+    city varchar2(30),
+    email varchar2(30),
+    mobile varchar2(15),
+    rating number(9,2)
+);
+
+--> Implement Procedures to AddRestaurant, SearchByRestaurantId, UpdateRestaurant, DeleteRestaurantById
+
+--> Write cursor to print all restaurant Details
+
+--> Write a procedure with output parameters to searchRestaurantById
+
+Create Table RestaurantBackup
+(
+   RbId number primary key,
+    restaurantId number,
+    restaurantName varchar2(30),
+    city varchar2(30),
+    email varchar2(30),
+    mobile varchar2(15),
+    rating number(9,2),
+    operation varchar2(30),
+    activityOn Date default sysdate
+);
+
+Write 3 Triggers for Insert, Update and Delete as you need to store the records in backup table and write operation as "INSERT","DELETE","UPDATE"
+
+If update old values to be stored in Backup Table
+if delete old values to be stored in Backup Table
+if insert new values to be stored in backup table
