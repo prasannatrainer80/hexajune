@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="beanHello" class="com.java.spr.HelloImpl">
+		<property name="welcomeNote" value="Welcome to Hexaware..." />
+		<property name="greeting" value="Thank You For Joining Training Mr/Miss/Mrs" />
+		<property name="endNote" value="All the best for Coming Exams and Project" />
+	</bean>
+</beans>

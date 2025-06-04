@@ -1,0 +1,109 @@
+Spring : Spring is a framework that which allows you to create any light-weight enterprise applications. 
+
+What is a Framework : Framework contains set of rules, that which allows you to make an application easier to access and code. 
+
+Framework asks you to follow the rules, the application and code becomes easier. The application becomes light-weight to access. 
+
+Spring mostly used for making "Loosely Coupled and Tightly Integrated" 
+
+Means there is no strong coupling required to implement any spring application.
+
+Spring strictly follows the concept of dependency injection. 
+
+class Job {
+   private int jobId;
+   private String desig;
+}
+
+class Family {
+   private int familyId;
+   private String address;
+}
+
+class Person {
+     private String name;
+     private Job job;
+     private Family family;
+     private Sring aadharNo;
+     private String passportNo;
+}
+
+Dependency Injection : Objects never lookup for the resources its depending on. DI is a feature that dependencies to be injected automatically once you create an object. 
+
+This can be achieved by using xml file. 
+
+We need to write configuration in xml file and to be called in program. 
+
+Then the corresponding class object created, then these dependencies are injected automatically. 
+
+For example : 
+
+Hi
+
+Menu
+
+Suryanarayan 
+
+Good Morning Suryanarayana
+Welcome to Whatsappsupport
+How can I help you 
+
+Dependency Injection: 
+In this application objects is not responsible for looking up resources they depend on. Instead IoC container configures the object externalizing resource lookup from application code into the container. That is, dependencies are injected into objects. Thus lookups are completely removed from application objects and it can be used outside the container also. 
+
+
+public class NameBean {
+    private String sname;
+
+    getter;
+    setter;
+}
+
+NameBean obj= ne NameBean();
+obj.setSname("Sandhiya");
+
+Now on don't write the code like that  
+
+For that we need to create an xml file, and in that we need to write the code
+
+Assume we have NameBean.java in com.java.spr package, then 
+
+<bean id="beanName" class="com.java.spr.NameBean">
+     <property name="sname" value="Hemanth Bala" />
+</bean>
+
+Then Once you create an object to NameBean then sname property
+will bind with "Hemanth Bala" name. 
+
+You can instantiate object of the class in Spring, by using 
+
+BeanFactory or ApplicationContext 
+
+
+BEAN FACTORY: 
+Bean factory is an implementation of the factory design pattern and its function is to create and dispense beans. As the bean factory knows about many objects within an application, it is able to create association between collaborating objects as they are instantiated. This removes the burden of configuration from the bean and the client. 
+
+There are several implementation of BeanFactory. The most useful one is "org.springframework.beans.factory.xml. 
+XmlBeanFactory". It loads its beans based on the definition contained in an XML file. To create an XmlBeanFactory, pass a InputStream to the constructor. The resource will provide the XML to the factory. 
+BeanFactory  factory = new XmlBeanFactory(new FileInputStream("myBean.xml")); 
+
+APPLICATION CONTEXT: 
+
+While Bean Factory is used for simple applications, the ApplicationContext is spring's more advanced container. Like 'BeanFactory' it can be used to load bean definitions, wire beans together and dispense beans upon request. 
+
+It also provide 
+1) a means for resolving text messages, including support for internationalization. 
+2) a generic way to load file resources. 
+3) events to beans that are registered as listeners. 
+
+Because of additional functionality, 'Application Context' is preferred over a BeanFactory. Only when the resource is scarce like mobile devices, 'BeanFactory' is used. The three commonly used implementation of 'Application Context' are 
+
+1. ClassPathXmlApplicationContext : It Loads  context definition from an XML file located in the classpath, treating context definitions as classpath resources. The application context is loaded from the application's classpath by using the code 
+ApplicationContext    context = new ClassPathXmlApplicationContext("bean.xml"); 
+2. FileSystemXmlApplicationContext : It loads context definition from an XML file in the filesystem. The application context is loaded from the file system by using the code 
+ApplicationContext    context = new FileSystemXmlApplicationContext("bean.xml"); 
+3. XmlWebApplicationContext : It loads context definition from an XML file contained within a web application. 
+
+ApplicationContext ctx = new ClassPathXmlApplicationContext("filename");
+
+
