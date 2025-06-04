@@ -1,0 +1,224 @@
+Examination preparation MCQ Oracle PL/SQL
+
+1) What is structure of PL/SQL block
+
+Declare
+    variable declation
+begin
+    business logic
+exception
+    exceptions
+
+2) What is output statement in PL/SQL
+
+set serveroutput on
+
+3) declare
+        total_records number;
+   begin
+       select count(*) total_records from emp;
+       dbms_output.put_line('Total Records ' || total_records);
+   end;
+
+is this code works or any error in this 
+
+error is into statement missing
+
+declare
+        total_records number;
+   begin
+       select count(*) into total_records from emp;
+       dbms_output.put_line('Total Records ' || total_records);
+   end;
+
+
+Stored Procedures :
+____________________
+
+What is syntax to create stored procedure
+
+Create or replace procedure procedure_name(par(s)) 
+AS
+BEGINE
+END;
+
+Create or replace procedure prcSayHello
+AS
+BEGIN
+        dbms_output.put_line('Welcome to PL/SQL Stored Procedure...');
+END;
+
+To Execute sp
+
+exec prcSayHello;
+
+How to create procedure with parameters
+
+Create or replace procedure prcEmploySearch(eno employ.empno%type)
+AS
+BEGIN
+     Declare
+        nam employ.name%type;
+        dpt employ.dept%type;
+        dsg employ.desig%type;
+        bas employ.basic%type;
+     begin
+        select Name, Dept, Desig, Basic into Nam, dpt, dsg, bas 
+		from Employ where empno = eno;
+        dbms_output.put_line('Employ No  ' || eno);
+        dbms_output.put_line('Employ Name ' || nam);
+        dbms_output.put_line('Department ' || dpt);
+        dbms_output.put_line('Designation ' || dsg);
+        dbms_output.put_line('Basic  ' || bas);
+     end;
+END;
+
+How to Create a procedure with in and out parameters
+
+Create or Replace procedure prcEmpSal
+(
+   eno IN employ.empno%type,
+   bas OUT employ.basic%type
+)
+AS
+BEGIN
+    select basic into bas from Employ where empno = eno;
+END;
+_________________________________________________________________________________________
+
+Create or replace procedure prcEmpOut(eno employ.empno%type)
+AS
+BEGIN
+     declare
+         bas employ.basic%type;
+     begin
+         prcEmpSal(eno,bas);
+         dbms_output.put_line('Salary is ' || bas);
+     end;
+END;
+
+exec prcEmpOut(1);
+
+If a procedure is having output parameter, it must be executed from 
+another procedure or batch
+
+directly we cannot call them.
+
+*** Study more about IN, OUT and IN OUT parameters ****
+
+_____________________________________________________________________________________
+
+What is Trigger ???
+
+What is a database trigger?
+Types of Triggers
+Creating a database trigger 
+Correlation names
+Instead-of triggers
+Knowing which command fired the trigger
+Enabling and disabling trigger
+Dropping a trigger
+
+What is a Database Trigger?
+Database trigger is a PL/SQL block that is executed on an event in the database.  The event is related to a particular data manipulation of a table such as inserting, deleting or updating a row of a table. 
+ 
+Triggers may be used for any of the following:
+
+To implement complex business rule, which cannot be implemented using integrity constraints.
+To audit the process.  For example, to keep track of changes made to a table. 
+To automatically perform an action when another concerned action takes place.  For example, updating a table whenever there is an insertion or a row into another  table.
+
+1) Which database objects are automatically executed or fired when some event occurs
+
+Trigger
+
+2) Triggers can be created on 
+
+Table View Schema All the above
+
+All the above
+
+3) What are the type of triggers are there for execution
+
+BEFORE
+AFTER
+INSTEAD OF
+
+4) Which specifies the columns name that will be updated
+
+OF COL_NAME
+
+5) Triggers can get data from Old values and Updated values how can we make it
+
+Old values can be accessable by using old as 
+
+old:city old:state old:salary
+
+updated values can be accesable by using new keyword as
+
+new:city, new:state, new:salary
+
+
+Old and New references are available for triggers at row level
+
+they are not available at table level.
+
+6) What are the benefits of triggers
+
+   -> Generate values automatically
+   -> Enforing Security
+   -> Enforing Referential integrity
+   -> Event Logging and storing information on table access
+
+7) Triggers can be executed on 
+	DDL
+	DML
+	Database Operation
+
+8) If you want to create trigger on view please use instead of trigger
+
+9) You can specify table name of trigger to be created by using ON TABLE_NAME
+option
+
+Sytanax to create trigger
+
+CREATE  [OR REPLACE] TRIGGER trigername
+{BEFORE | AFTER}
+{DELETE | INSERT | UPDATE [OF columns]}
+        [OR {DELETE | INSERT |UPDATE [OF columns]}]... 
+ON table
+[FOR EACH ROW [WHEN condition]]
+[REFERENCING  [OLD AS old] [NEW AS new]]
+PL/SQL block
+
+10) ON which command we cannot create triggers
+
+SELECT command
+
+11) How to specify row level triggers
+
+FOR EACH ROW
+
+12) Will trigger accepts parameters ???
+
+Strictly NO
+
+13) how to execute Stored Procedure
+
+exec procedure_name
+
+14) Can we pass parameters in stored procedure
+
+we can pass both input and output parametgers
+
+15) Stored Procedures will return values (Yes)
+
+16) Stored Procedures will not be used in transaction (Yes)
+
+17) Stored Procedures not to be used in select and where clause
+
+18) Stored Procedures will enahance efficiency, reusability, and security
+
+19) what operations are suppored in stored procedures INSERT, UPDATE, DELETE,SELECT
+
+
