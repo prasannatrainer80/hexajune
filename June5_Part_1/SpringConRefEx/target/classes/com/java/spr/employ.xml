@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC 
+"-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="address" class="com.java.spr.Address">
+			<constructor-arg value="Hyderabad" />
+			<constructor-arg value="TG" />
+	</bean>
+	<bean id="employ" class="com.java.spr.Employ">
+		<constructor-arg value="1" type="int" />
+		<constructor-arg value="Prasanna" type="String"/>
+		<constructor-arg value="85823" type="double" />
+		<constructor-arg>
+			<ref bean="address" />
+		</constructor-arg>
+	</bean>
+</beans>

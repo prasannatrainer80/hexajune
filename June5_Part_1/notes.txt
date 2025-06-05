@@ -1,0 +1,26 @@
+To deal with database, we need to use the predefined class as
+
+JdbcTemplate : This class allows you to implement Jdbc Operations. 
+
+query() : used for select command
+
+update() : Used for Insert/Update and Delete Operations. 
+
+Here, if you want to specify the database connection information, we need to use the Datasource from 
+org.springframework.jdbc.datasource.DriverManagerDataSource
+
+You can specify in xml file as 
+
+	<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+  		<property name="url" value="jdbc:mysql://localhost:3306/hexaware"/>
+  		<property name="username" value="root" />
+  		<property name="password" value="root" />
+	</bean>
+
+JdbcTemplate class will be form org.springframework.jdbc.core.JdbcTemplate package allows you to pass DataSource to that. 
+
+RowMapper : This class allows you to convert database rows into front end class objects. 
+
+Means ResultSet rows to be converted into Class (Employ) objects that mapping can be done by RowMapper class.
+

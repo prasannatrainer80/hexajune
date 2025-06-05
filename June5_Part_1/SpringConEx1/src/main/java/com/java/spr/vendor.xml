@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC 
+"-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="c1" class="com.java.spr.Customer">
+		<constructor-arg value="Shwetha" />
+		<constructor-arg value="84823" />
+	</bean>
+	<bean id="c2" class="com.java.spr.Customer">
+		<constructor-arg value="Santhiya" />
+		<constructor-arg value="90042" />
+	</bean>
+	<bean id="vendor" class="com.java.spr.Vendor">
+			<constructor-arg value="1" />
+			<constructor-arg value="Zomoto" />
+			<constructor-arg>
+				<list>
+					<ref bean="c1" />
+					<ref bean="c2" />
+				</list>
+			</constructor-arg>
+	</bean>
+</beans>
