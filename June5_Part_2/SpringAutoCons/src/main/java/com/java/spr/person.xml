@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context = "http://www.springframework.org/schema/context"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+<context:annotation-config />
+	<bean id="jobDetails" class="com.java.spr.JobDetails">
+		<constructor-arg name="job" value="Software Engineer" />
+		<constructor-arg name="company" value="Hexaware" />
+		<constructor-arg name="location" value="Chennai" />
+	</bean>
+	
+	<bean id="jobWipro" class="com.java.spr.JobDetails">
+		<constructor-arg name="job" value="Tester" />
+		<constructor-arg name="company" value="Wipro" />
+		<constructor-arg name="location" value="Hyderabad" />
+	</bean>
+	
+	<bean id="family1" class="com.java.spr.Family">
+		<constructor-arg name="city" value="Cudalore" />
+		<constructor-arg name="state" value="TN" />
+	</bean>
+	
+	<bean id="family2" class="com.java.spr.Family">
+		<constructor-arg name="city" value="Erode" />
+		<constructor-arg name="state" value="TN" />
+	</bean>
+	
+	<bean id="family3" class="com.java.spr.Family">
+		<constructor-arg name="city" value="Kakinada" />
+		<constructor-arg name="state" value="AP" />
+	</bean>
+	
+	<bean id="person1" class="com.java.spr.Person" autowire="constructor">
+		<constructor-arg name="id" value="1" />
+		<constructor-arg name="name" value="Monisha" />
+		<constructor-arg name="family" ref="family1" />
+	</bean>
+	
+	<bean id="person2" class="com.java.spr.Person" autowire="constructor">
+		<constructor-arg name="id" value="2" />
+		<constructor-arg name="name" value="Hemanth Bala" />
+		<constructor-arg name="family" ref="family2" />
+	</bean>
+	
+	<bean id="person3" class="com.java.spr.Person" autowire="constructor">
+		<constructor-arg name="id" value="3" />
+		<constructor-arg name="name" value="Bala" />
+		<constructor-arg name="family" ref="family3" />
+		<constructor-arg ref="jobWipro" />
+	</bean>
+	
+</beans>
