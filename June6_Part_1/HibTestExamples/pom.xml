@@ -4,11 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>hexa</groupId>
-  <artifactId>HibExamples</artifactId>
+  <artifactId>HibTestExamples</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>HibExamples</name>
+  <name>HibTestExamples</name>
   <url>http://example.com</url>
 
   <properties>
@@ -17,7 +17,7 @@
   </properties>
 
   <dependencies>
-   <dependency>
+     <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
     <version>1.18.4</version>
@@ -38,6 +38,7 @@
       <artifactId>guava</artifactId>
       <version>17.0</version>
     </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
