@@ -1,0 +1,66 @@
+Web Application : These are the applications, that which are to be called from various places rather than where they are created. 
+
+If you want to make any distributed or robust applications, 
+then we need the help of web applications. 
+
+You can create web applications in 2 ways as 
+
+1) Scripting Languages
+
+2) Programming Languages
+
+Scripting Languages are langauges, that which are interpred
+during runtime they takes lot of time to execute. 
+
+Programming languages are langauges that which are compiled 
+first, during runtime they takes very less time to execute. 
+
+In Java, we can make web applications by using JSP.
+
+
+Java Server Pages (Used to create any UI w.r.t. Web applciations)
+
+The advantage w.r.t. JSP is 
+
+JSP takes the combination of Java code and HTML together
+that makes the application to run and performance will improve.
+
+For running web applications, we need to use either any webserver
+
+preferably we can use Apache Tomcat Web server. 
+
+Web applications purely work on the basis of request and response. 
+
+the main intrinsic objects we have in JSP are
+_____________________________________________
+
+request	-> Any resource or value we are requesting comes with request
+
+response -> Any target we need to write
+
+out  -> Any data we need to print programmatically
+
+out.println("It will print on web page");
+
+application
+
+session
+
+_________________________________________________________________________
+
+How to write java code in JSP page, 
+
+we have predefined directives we have as
+
+<%@ page %> : This directive used to add packages
+
+<%@ page import="java.util.List" %> 
+
+<%! %> : Used to variable declarations
+
+<% %> : Used for scriptlet tags. used to write pure java code
+
+<%= %> : Used to print values or expressions. (If any already existing values to be printed use this expression bracket)
+
+JSP page no need to recompile, once you refresh the page it will get updates automatically.
+
