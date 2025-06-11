@@ -5,6 +5,14 @@ B. Class Object Mapping
 C. Object Relational Mapping
 D. None of the above
 
+
+
+
+
+
+
+
+
 View Answer
 
 Ans : C
@@ -44,6 +52,9 @@ B. FALSE
 C. Can be true or false
 D. Can not say
 
+SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+Session session = sf.openSession();
+
 View Answer
 
 Ans : A
@@ -77,7 +88,7 @@ Ans : B
 Explanation: Hibernate has 2 cache types: First level and second level cache
 
 
-7. A ___________ represents a unit of work with the database and most of the RDBMS supports transaction functionality.
+7. A ___________ represents a unit of work with the database and most of the RDBMS supports DML functionality.
 
 A. Query objects
 B. Session
@@ -94,7 +105,7 @@ Explanation: A Transaction represents a unit of work with the database and most 
 
 A. clear
 B. cancelQuery
-C. Transaction beginTransaction
+C. Transaction trans = session.beginTransaction()
 D. Transaction
 
 View Answer
@@ -119,7 +130,7 @@ Explanation: No, Session is not a thread-safe object which means that any number
 10. The Hibernate architecture consists of?
 
 A. persistent object
-B. session factory
+B. sessionfactory
 C. transaction
 D. All of the above
 
