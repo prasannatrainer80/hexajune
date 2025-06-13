@@ -1,0 +1,51 @@
+Database Preparation :
+__________________________
+
+
+1) Sql Basics
+
+	Basic Commands
+
+	
+
+2) Joins
+
+	Joins Syntaxes 
+
+	Inner Join/Outer Join/ Cross Join/ Self Join Mandetory
+
+	
+
+3) Subqueries : Single Row Subquery, Multi Row Subquery
+
+	Mandetory See Correlated Subquery
+
+4) Procedures : See Syntaxes and parameters IN OUT 
+
+6) Triggers
+Before Trigger, After Trigger, Table Triggers
+
+Instead Of Triggers 
+
+*** Intead of triggers can be created on views only ***
+
+7) Cursors : Fetch 
+		open cursor close cursor fetch ....
+
+8) Views
+
+How to create views/ how to create views from multiple tables
+
+View is a virtual table, 
+
+create view view_name 
+as
+  select * from table_name
+
+
+create view view_name
+as
+   select command with joins
+
+As instead of triggers to be created on views only
+

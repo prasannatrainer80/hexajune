@@ -1,0 +1,225 @@
+What are bean scopes in spring framework 
+
+singleton -> Only one object will be created for entire application
+prototype -> For every bean, separate object will be created. 
+request
+application
+
+
+
+1) Spring beans defined are by default
+
+a) Abstract
+b) SingleTon
+c) Final
+d) Initialized
+
+
+SingleTon
+
+2) What are the type of Bean Injections are available
+
+a) Constructor and Setter
+b) Constructor and Getter
+c) getter and setter
+d) Constructor, getter, setter
+
+Constructor and Setter
+
+3) What are the different autowire types
+
+byName, byType, constructor and autodetect
+
+4) What is BeanFactory and ApplicationContext
+
+ApplicationContext extends BeanFactory
+
+
+4) AOP Stands for
+
+5) What is MVC stands for
+
+6)Spring Provides
+
+	Resource Management
+	Exception Handling
+	Resource unwrapping
+	Abstraction for Handling large data
+
+
+7) If the select methods singaure that matches with following pointcut
+execution(* com.test.service..*.*(*))
+
+What is AOP
+
+	It is a paradigm that complements Object Oriented Programming while concerned with 
+organize code into classes and objects. AOP focuess on cross-cutting concerns
+
+functionalities that affect multiple parts of an application. 
+
+Cross cutting concerns include logging, security, transactions 
+
+1) JointPoint : Execution point of program. it will be method or handling exception. In Spring AOP jointpoint always represents a method execution. JointPOint Define the points in your application at which you can insert additional logic.
+
+2) Advice : Is the code that will be executed at particular jointpoint
+
+	BeforeAdvice -> THis comes for every method  before starting
+	After Advice  -> This comes at the end of every method
+	After Throwing Advice
+	After Adive
+	Around Advice -> This comes only for particular method. 
+
+@Pointcut("execution(* com.hexaware.aop.Boarding.*(..))")
+
+Means in Boarding class all methods with all parameters it will be applied
+3) Aspect : Is the combination of advices and pointcuts in class, the aspect class can be
+prefixed with @aspect annotation
+
+
+How to give example for before, after and AfterReturning
+
+
+
+@Pointcut("execution(* com.hexaware.aop.Boarding.*(..))")
+	public void assignProject() {}
+	
+	@AfterReturning(
+			pointcut = "execution(* com.hexaware.aop.Boarding.*(..))",
+			returning = "result")
+	public void myadvice(JoinPoint jp, Object result) {
+		System.out.println("Additional Output");
+		System.out.println("Method Signature  " + jp.getSignature());
+		System.out.println("Result  " +result);
+	}
+
+	
+	@Before("assignProject()")
+	public void mcqExam() {
+		System.out.println("Pleaes Check cleared all Mcq Exams are Not...");
+	}
+	
+	@After("assignProject()")
+	public void assignLaptop() {
+		System.out.println("Please Provide Laptop");
+	}
+
+4) PointCut : is a predicate or expression that matches the jointpoints. 
+
+5) Weaving
+
+6) Target 
+AOP Purely
+
+AOP Architectuere
+
+Advice, JointPoint, PointCut
+
+Types of Adivces
+
+How to start with Spring AOP
+
+
+________________________________________________
+
+
+Syntax to define aspect class 
+
+@Aspect
+
+@Before("execution (* EmployeeManager.getEmployeeById(..))") -- POintcut expression
+
+________________________________________________________________
+
+
+@Aspect
+
+@Before(" execution(* com.hexaware.core.aop.service.EmployeeSerice.*(..))")
+
+__________________________________________________________________________
+
+In Spring AOP what is an advice 
+
+Advice is methoed that handles cross-cutting concern
+
+An advice action can be taken by an aspect for particular joint point. Joint POint is a method execution
+
+Which type of advice runs aftrer the advice method completes without throwing any exception
+
+After Returning Advice
+
+In Spring AOP, what defines a point where an advice should be executed
+
+All advices to be defined in pointcut
+
+POintCut Defines the expressions that determine which join points (like method executions) should be matched for advice execution
+
+What is SPRING AOP supports
+
+	Only one method execution joint point
+	Implemented using proxies
+	Its integrated with Spring's transaction management
+
+Spring AOP is proxy based does not use bytecode waving 
+
+which advice will be executed even program success or exception thrown
+
+1) After Advice 
+
+Which AOP framework does spring AOP integrate with for advanced AOP features 
+	AspectJ
+
+which advise executes mandatorily irrespective of Program success or error
+
+@After
+
+Spring AOP MCQ - Multiple Choice Questions and Answers (javaguides.net)
+
+https://www.javaguides.net/2023/10/spring-aop-mcq.html
+https://docs.spring.io/spring-framework/docs/2.5.x/reference/aop.html
+
+
+How to auto-inject into a filed a bean by its name 
+
+@AutoWired
+
+How to create an object for ApplicationContext
+
+ApplicationContext ctx = new ClassPathxmlApplicationConext("xmlfile");
+
+
+<bean class="com.hexaware.Address">
+  <property name="city" value="Hyd"/>
+</bean>
+
+<bean class="com.hexaware.temp.Address" ref="addr" /> 
+
+Wrong as we have not given id to first bean
+
+
+<bean id="addr" class="com.hexaware.Address">
+  <property name="city" value="Hyd"/>
+</bean>
+
+<bean class="com.hexaware.temp.Address" ref="addr" /> 
+
+Which annotation used for autowiring 
+
+<context:annotationConfig />
+
+____________________________________________________________________________________________
+
+Spring IOC Topic
+Spring Dependency Injection
+BeanFactory
+ApplicationContext
+Ref
+AutoWiring
+constructor Injection
+Getter/Setter Injection
+AOP
+  JointPOint
+   pointcut
+   advice
+   aspect
+   
+

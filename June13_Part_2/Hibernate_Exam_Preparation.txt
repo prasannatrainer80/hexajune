@@ -1,0 +1,298 @@
+Hibernate 
+
+1) what is the name of the hibernate configuration file
+
+hibernate.cfg.xml
+
+2) Identify which statement is true
+
+a) hibernate is ORM library for java language
+b) Hibernate provides mapping for object oriented domain model
+c) Hibernate used for database operations
+d) All
+
+3) ORM stands for
+
+4) Which object stores Optional Data 
+
+a) Session
+b) SessionFactory
+c) Transaction
+d) Query
+
+
+SessionFactory is secondary level cache which stores optional info about
+database connection
+
+5) Which object contains information about Mandetory data (first level cache)
+
+
+a) Session
+b) SessionFactory
+c) Transaction
+d) Query
+
+Session object contains mandatory data like table to perform operations, 
+its first level cache.
+
+6) What is the purpose of hibernate.show_sql=true means
+
+1) Shows sql statements in console
+2) show sql inputs in console
+3) Hides sql
+4) None
+
+1 Shows Sql Statements in console
+
+7) how to get Connection object from the session
+
+1) sessionFactory.connection()
+2) sessionFactory.availConnection();
+3) sessionFactory.getConnection()
+4) NOne
+
+
+3) sessionFactory.getConnection();
+
+SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory(
+Session session = sf.getConnection();
+for new connection sf.openConnection()
+
+For existing getConnection() for new openConnection()
+
+
+4) What is teh diff. between 
+
+Employ e = session.load(Employ.class)
+
+Employ e = session.createCriteria(Employ.class);
+
+What is diff. 
+
+In first load() method if you close session, Emp object unavailable
+but in criteria its available even u close session
+
+5) How to create query by using HQL
+
+session.createQuery()
+
+6) How to get existing row in session
+
+session.get();
+
+
+7) You can make mapping file for hibernate as
+
+.hbm.xml
+
+8) Is hibernate classes to be Serializable
+
+No
+
+9) HOw to assign primary key for entity class in hibernate 
+@Id
+
+10) How to Give Auto Increment 
+
+@GeneratedValue(strategy=GenerationType.AUTO)
+
+for autoincrement
+
+table level values to be generated then
+
+@GeneratedValue(strategy=GenerationType.TABLE)
+
+10) How to convert fetch strategy tuned query 
+
+Query query = session.createQuery() its not tuned query
+
+but
+
+Query query = session.createCriteria()
+
+11) POJO stands for 
+
+Plain Old Java Objects
+
+12) Which is not in hibernate architecture
+
+(a) Configuration
+(b) Criteria
+(c) SessionManagement
+(d) Session
+
+SessionManagement
+
+13) Which method hits databae always
+
+get()
+
+14) Which method inserts data into database
+
+1) add()
+2) insert()
+3) save()
+4) saveorUpdate()
+
+15) Which method used to delete data from database
+
+1) delete()
+2) deleteById(
+3) remove(object)
+4) removeAll()
+
+remove(object)
+
+16) What is advantage ofr HQL 
+
+1) Database Independent
+2) Easy to write query
+3) No Need to learn SQL
+
+17) What is advantage or Hibernate Criteria API
+
+1) Allows 
+
+18) Core interfaces of Hiberante Framework
+
+1) Configuration
+
+2) SessionFactory
+
+3) Session
+
+4) Query
+
+5) Criteria
+
+6) Transaction
+
+19) What is the purpose of dialect
+
+Dialect is a component that connects hibernate as open source java framework, to database 
+management system.
+
+It translates generic sql by hibernate into the specific syntax of the targeted DBMS. 
+
+This allows for seamless interaction between business obejcts and relational databases.
+
+20) Which method used to update the table records in hibernate
+
+1) saveOrUpdate()
+
+2) keep()
+
+3) update()
+
+4) load()
+
+saveOrUpdate()
+
+21) HOw the way we are mapping java.util.List property in hibernate 
+
+a) set<>
+b) List<>
+c) bag<>
+d) map<>
+
+List
+
+22) Which of following situation represents many to many relationship
+
+1) Employee can have Multiple Certificates and multiple certificates can be conferred to many 
+employees
+
+23) What is second level cache in hibernate 
+
+SessionFactory is the second level cache responsible for caching objects across sessions
+
+24) Is query level cache is there 
+
+yes its optional
+
+It only useful for queries that are run frequently with same parameters
+
+25) What is purpose of @Entity annotation
+
+@Entity allows you to create entity bean
+
+class marked with @Entity annotation must have no-argument constructor that is visible with the least protected scope
+
+26) What is purose of @Table annotation
+
+@Table annotation allows to specify the details of the table that will be used to persist the entity in the database
+
+@Table annotation allows to override the name of the table, its catalogues and its schema 
+
+
+Which annotation allows you define one to one relationshoi
+
+@OneToOne
+
+Which annotation can be used for define one to many relationship
+
+@OneToMany
+
+How to specify foreign key column in one to many relationship
+
+@JoinColumn
+
+How to specify primary key in relationship OnetoOne
+
+@PrimaryKeyColumn
+
+Which file used to write configuration information in hibernate 
+
+hibernate.cfg.xml
+
+Which interface used to create a session
+
+SessionFactroy
+SessionFactory interface used to create a session in hibernate which represents a single unit of work with database
+
+What is the purpose of Session Object
+
+To perform CRUD operations 
+
+What does the SaveOrUpdate() method do in hibernate 
+
+It tries to insert the record, if record already exists it updates
+
+
+What is the default fetching strategry in hibernate for @OneToMany
+
+Eager
+
+how to delete an object in hibernate 
+
+remove()
+
+Which annotation defines primary key
+
+@Id
+
+What is purpose of @OneToMany annotation in Hibernate 
+
+A relationship where one entity associated with multiple entities
+
+What does the @ManyToMany annotation signify in hibernate 
+
+Relation where many entities are associated with many entities
+
+Which caching is for better performance
+
+Second Level cache for better performance
+
+How to commit transaction 
+
+Transaction t = session.beginTransaction();
+
+t.commit();
+
+
+How to implement inheritance annotation in hibernate 
+
+@Inheritance annotation
+
+
+
