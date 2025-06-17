@@ -91,6 +91,77 @@ To send a value with url
 
 @PathParam : This annotation allows you to pass any data type through the url. 
 
+___________________________________________________________________
+
+Spring Boot : It is a framework, that which implemented on top of Spring framework, allows you to create any standalone or web based or service oriented applications more easily. 
+
+It provides an easier and faster way to setup, configure and run both simple and webbased applications. 
+
+For Spring boot we have enabled web-server tomcat installed. 
+
+So Spring Boot is combination of Spring Framework + Enabled Http Server and - XML Bean Configurations 
+
+Advantages : 
+
+	-> Easy way to create and maintain application
+	-> Integrate multiple services into a single service. 
+	-> The dependency Injection approach used in SB.
+	-> Easy way to Connect to database and maintain transactions 
+
+Features : 
+
+	-> Spring Data : Easy way to Work with databases and perform operations.
+
+	-> Spring Batch : Group of sql statements to be executed. 
+
+	-> Spring Security : Allows you to access the resources after passing security, here we can implement security in various ways as Code Level, DB level and JWT preferred. 
+
+	-> We can select dependencies at the time of Creating Project, and here very less scope for versioning issues. 
+
+
+	-> Spring Integration
+
+
+
+Spring Boot Purely contains code in terms of Annotations, as here we removed the xml syntaxes
+
+ There are various annotations available in SpringBoot as 
+
+1) @SpringBootApplication : This annotation allows you to mark the main() method as spring boot application. It addes 
+
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan
+
+It is powerful and at class-level annotation part of SB framework, implies that class provides this config. It can be used as an alternative to spring standards. 
+
+@Controller : This annotation provides Spring MVC features, used to create controller class and simultaneously it handles the HTTP requests. 
+
+@RestController : This annotation used to handle REST APIs such as GET, PUT, POST, DELETE etc... Also used to create RESTFUL web services. 
+
+@RestController = @Controller + @ResponseBody
+
+Now, how the way we have 4 HTTP verbs, here have various mappings
+
+@GetMapping
+@PutMapping
+@PostMapping
+@DeleteMapping
+
+If you want to pass parameter, then we need to use 
+
+@PathVariable : This annotation used to extract the Data from the URI path, it binds the URL template path variable with method variable. 
+
+Now, if you want to specify any config information, please add in application.properties file
+
+by default here tomcat runs in 8080 port, if you want to change it add the property as 
+
+server.port=8181
+
+
+
+
+
 
 
 
