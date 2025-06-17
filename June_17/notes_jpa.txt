@@ -1,0 +1,52 @@
+Spring Data JPA : Java API for Persistnce API allows you to perform database operations more easily with sophisticated env. 
+
+
+It provides Persisting, reading and managing data from our java object
+to relational tables in database. 
+
+JPA provides guidelines to implement ORM and there is no underlying
+code for the implementation. 
+
+Spring Data JPA is part of spring framework.
+
+The goal of spring Data Repository abstraction is to significantly
+reduce the amount of refracting code requirement to implement 
+by Data Layer. 
+
+in Spring Data JPA the main annotations we have here are
+
+@Entity -> This annotation defines that a class can be mapped to table
+
+@Id : This annotation specifies primary key of the entity
+
+@GeneratedValue : ANnotation used for auto increment.
+
+In Data Jpa we have powerful annotations known as
+
+@Repository : The @Repository annotation is marker for any class that
+fulfills the role or sterotype of a repository. (DAO)
+
+@JpaRepository : Contains a full API of CrudRepository and 
+PageAndSoringRepository which contains API methods of basic 
+CRUD operations. 
+
+public interface EmployRepository extends JpaRepository<Employ,
+Integer> 
+{
+}
+
+
+public interface ProviderRepository extends JpaRepository<Provider,String> { }
+
+ensures here Employ class having Integer data type primary key
+and please generate CRUD methods for Employ class mapped table. 
+
+
+@Service : This annotation used with classes that provide some business functionalities. Spring Context will autodetect these classes when annotation-based configuration and classpath scanning used. Here JPA repository has lots of predefined generic methods to perform the database operation some are used in the below code. 
+
+Now for database, we need to write connection string information in application.properties file
+
+spring.datasource.url=jdbc:mysql://localhost:3306/hexajune
+spring.datasource.username=root
+spring.datasource.password=root
+
