@@ -1,0 +1,100 @@
+Application Architectures : 
+____________________________
+
+There are 3 types of application architectures known as 
+
+(i) Single Tier
+
+(ii) Two Tier
+
+(iii) Three Tier 
+
+Each application architecture contains 3 layers known as 
+
+(i) User Services
+
+(ii) Business Services
+
+(iii) Data Services 
+
+In Single Tier architecture, one single executable file handles
+all these operations, so single tier architecture applications
+are called monolithic applications. 
+
+In Two tier architecture 
+
+we can implement the application w.r.t.
+
+1) Client-Based : {User Services + Business Services} + {Data Services}
+
+2) Server-Based : {User Services} + { Business Services + Data Services} 
+
+*** In this the two layers will be resided in a single system or different system. ***
+
+Three-Tier architecture : 
+
+All the 3 layers resides separately in a single system or different system and performs the job as a single unit. 
+
+In Three-Tier architecture all the 3 layers resides separately in a single system or different system and performs job as a single unit. 
+
+The concept of middle tier, we need to make, then we need the help of Webservices. 
+
+Webservices : web services contains methods, that can be called across various programming languages, if you want to make any method as write once and call from any programming language then we need the help of webservice. 
+
+There are 2 types of web services
+
+-> SOAP (Simple Object Access Protocol) 
+
+	It is a webservice purely works on XML standards. 
+
+It has various standards as 
+
+	-> SOAP : It is a communication protocol that which enables the communication between client and server
+
+	-> UDDI (Universal Description, Discovery and Integration) : It is a place where we can register and deploy the application. 
+
+	-> WSDL (Webservice Description Language) : It generates xml vocoblury for web methods which are there in service. 
+
+But now a days SOAP based services are outdated, because it only supports xml form only, but if you want to return xml, plain_text, html format or array format then these services are inadequate. 
+
+-> REST (Representational State Transfer) 
+
+It is an architecture style for developing applications that can be accessed over network. 
+
+It is a stateless client server architecture where services are resources and can be identified by URL. Means all the methods to be accessed by using URL. 
+
+To implement these operations, REST supports various annotations. 
+
+It is from JAX-RS framework Java API for XML Restful Services. 
+
+@Path : Used to specify alias or relative path of class and methods. 
+
+@GET, @PUT, @POST , @DELETE These are http verbs which performs CRUD operation.
+
+@GET -> Used for HTTP get operations, used to get any data from database or resource 
+
+@POST -> Used to perform Insert Operation
+
+@PUT -> Used for Update Operation
+
+@Delete -> Used for Delete Operation.
+
+@Produces -> What type of data it needs to return example 
+
+@Produces(MediaType.APPLICATION_JSON) -> Produces APPLICATION JSON Data to be returned .
+
+@Produces(MediaType.TEXT_PLAIN) -> Returns PLAIN_TEXT to be browser
+
+@Consumes(MediaType.APPLICATION_JSON) -> What type of data to be given as input. 
+
+To send a value with url 
+
+@PathParam : This annotation allows you to pass any data type through the url. 
+
+
+
+
+
+
+
+
