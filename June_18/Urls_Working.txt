@@ -1,0 +1,28 @@
+http://localhost:8811/showEmployee
+
+http://localhost:8811/searchEmployee/1000
+
+_________________________________________________________
+
+Post Method : 
+
+http://localhost:8811/applyLeave 
+
+{
+    "empId": 2000,
+    "leaveStartDate": "2025-07-10",
+    "leaveEndDate": "2025-07-11",
+    "leaveType": "EL",
+    "leaveReason": "Going Home"
+}
+
+*** add atleast 3 to 5 records of same employee ***
+
+http://localhost:8811/searchByLeaveId/2
+
+http://localhost:8811/employeeLeaveHistory/2000
+
+http://localhost:8811/approveDeny/1/1000/YES/Enjoy Leave
+
+http://localhost:8811/approveDeny/2/1000/NO/Sorry Not Now
+
