@@ -1,0 +1,21 @@
+http://localhost:9312/placeOrder
+{
+    "cusId":1,
+    "venId":1,
+    "menId":1,
+    "walSource":"PAYTM",
+    "ordQuantity":1,
+    "ordComments":"Make it Spicy Hexa Party"
+}
+
+{
+    "cusId":1,
+    "venId":1,
+    "menId":1,
+    "walSource":"PAYTM",
+    "ordQuantity":2000,
+    "ordComments":"Make it Spicy Hexa Party"
+}
+
+http://localhost:9312/showCustomerPendingOrders/1
+http://localhost:9312/showCustomerOrders/1
