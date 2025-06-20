@@ -1,0 +1,101 @@
+Spring Boot Security ensures only the request can be accessable to particular user based on credentials. 
+
+JWT Security : (Json Web Token) 
+
+What is JSON Web Token
+
+	Is an open standard that defines compact and self-contained way for securely transmitting information
+between parties as JSON object. This information can be verified and trusted because it is digitally signed. 
+JWT's can be singned using Secret codes as RSA or ECDSA or HMCA 
+
+HMCA -> Hash Based Message Authentication code 
+
+ECDSA -> Ellipitc Curve Digitial Signature Algorithm
+If yo want to generate any cryptographic code, then the above algorithms are best
+
+
+JWT's can be encrypted to also provide secrutity between parties, we will focus
+on signedTokens. They can verify the integrity of the claims contained 
+within it. while encrypted tokens hide those claims from other parties. These 
+tokesn are signed using public/private key pairs, the signature also certifies 
+that only the party holding the private key is the one that singed it. 
+
+when to Use JSON Web Token
+
+	-> For Authorization : This is the most common scenario for using JWT. Once the user
+is logged in, each subsequent request will include the JWT, along the user 
+to access routes, servies and resources. The token will take care of above things
+Here, we can specify security for token expiration. THis is called Single Singon feature that widely uses 
+JWT nowadays, because of its small overhead and its ability to be easily used across different domains. 
+
+	-> Information Exchange : JSON web tokesn are good way of securely transmitting information between 
+	parties, because JWTs can be signed - for example using public/private key paris - you can be sure the 	senders are who they say they are. Additionally, as the signature calculated using the header and the
+	payload, you can also verify that the content hasn't been tampered with. 
+
+JWT token contains 3 parts
+
+(I) Header
+(II)Payload
+(III) Signature 
+
+Header typically contains 2 parts, which is JWT and the sigining algo to be used. 
+
+Payload 
+	Contains the claims. Claims are statements about the entity (the user) and additional data. There are 3 types of claims as, registered, public and private claims 
+
+Signature 
+	To create signature part you have ot take the encoder header, the coded payload, a secret, the algorithm specified in the header and sign that. 
+
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFsaW5pIiwiaWF0IjoxNzI1NzY5ODUzLCJleHAiOjE3MjU3NzE2NTN9.T4KEBwAlQlrG8HITuw9m1gpyVwU42HMrpqkgNdSu4Vo
+
+How do JSON Web Token Works ?
+
+In authentication, when the user successfully logs using their credentials, JSON web token will be returned.
+Since those tokens are credentials, greate create must be taken to prevent security issues, in general, you should not keep tokens for long that required. 
+
+Whenever the user wants to access a protected route or resource, the user agent should send the JWT, 
+typically in authorization header, here we need to using Bearer Schema, 
+
+Now, if you send JWT tokens through HTTP headers, you should try to prevent them from getting too big. 
+Some servers don't accespt more than 8kb in headers, if you are trying to embed too much info 
+in JWT token, like by including all the user's permissions, you may need an alternative solution. 
+
+___________________________________________________________________________
+
+Microservices : 
+
+Microservice architecture is a service oriented architecture. 
+
+Lot of services are combined together and they form one big service. that kind
+of concept we call as microservice.
+
+Here we can use one service in another service. 
+
+By combining all services, we need to construct one big service, that is the purpose of microservice. 
+
+Apart from that it implements various operations as
+
+1) Load Balancing : As the network traffic increases, then instead of accessing from specific port, i need to access from alternate gatways known as load balancing. 
+
+2) Api Gateway : It provides only one entry point for all services. 
+
+3) Fault Tolerance : 
+
+Characterstics of microservices : 
+__________________________________
+
+   -> Single Responsibility 
+
+   -> Modeled around business domain : Any database can access this service
+ 
+   -> Isolated Failure : We can detect the failure service and restore automatically
+
+
+For making spring boot microservice we prefer Spring Cloud framework to be implemented
+
+for this we have one free server known as Netflix Eureka Server 
+
+It has 2 run in 8761 port 
+
+
+	
