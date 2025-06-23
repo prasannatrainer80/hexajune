@@ -1,0 +1,155 @@
+Angular is a UI framework, that which allows you to create any standalone, desktop and enterprise level applications. 
+
+If you want to make both client-side and server-side scripting to
+be done, then we need the help of angular. 
+
+web application : These are the applications, that which are to be
+called from various places rather than where they are created. 
+
+If you want to make any distributed or robust applications, then 
+we need the help of web applications. 
+
+You can create web applications in 2 ways as 
+
+(i) Scripting Languages
+
+(ii) Programming Languages 
+
+Scripting languages are languages that which are interpreted, 
+during runtime they takes lot of time to execute. 
+
+Programming languages are languages that which are compiled first,
+during runtime they takes very less time to execute. 
+
+In Web applications, we can implement
+
+(i) Client-Side
+
+	-> Enables you to access application from same system
+
+	-> No Network traffic
+
+	-> Execution will be faster
+
+(ii) Server-Side 
+
+	-> Enables you to access the application from the server system
+
+	-> Network traffic is high
+
+	-> A bit slower
+
+*** Any intranet based applications w.r.t. no security, please opt for client-side scripting ***
+
+*** Any internet based application w.r.t. Min security, please opt for both client-side/server-side scripting ***
+
+*** Any internet based application w.r.t. High Security, please opt for server-side scripting ***
+
+Angular implemented on top of Node Js Platform.
+
+It works on basis of npm as (node package manager) 
+
+To create an angular project 
+
+ng new project_name
+
+then the project will be created automatically.
+
+node_modules are heart that which contains all necessary 
+dependencies to be added to the given project. 
+
+all the configurations will be stored in 
+
+package.json 
+
+Angular implemented on top of typescript, which is superscript
+of javascript. 
+
+So, any typescript related config to be implemented on 
+
+tsconfig.json
+
+Now, angular is all about components, so any kind of code you
+need to write, you must specify in component only
+
+Once you create any angular project, by default one component
+gets created as 
+
+app.component
+
+Each component will have 4 files as
+
+component.ts -> Please write any coding to be done
+component.html -> Any UI code to be written
+component.spec.ts -> Please write any test-cases 
+component.css -> Any styling to be implemented. 
+
+A component will be specified by using decorator known as 
+
+@Component
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet,FirstComponent,SecondComponent,FormsModule, ThirdComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+
+
+It contains various sections as 
+
+ => selector :Using selector, we can reuse this component 
+
+ => standlone : true, means it is independent compoentn
+
+Since angular 18, we started implement standalone applications
+for performance issues. 
+
+ => imports : used to add any custom or system directives to the
+	given code. 
+
+ => templateUrl : Ensures what is the associated UI page for the
+	given component 
+
+You can create any angular component, using ng command as 
+
+ng g c component_name
+
+once you create any component, it generates 4 files with folder as
+
+component.ts
+component.html
+component.css
+component.spec.ts
+
+DataBinding : Angular supports various types of databindings
+
+1) Interpolation : {{ }} 
+
+If you want to print any existing values, then we need to use this
+interpolation.
+
+Now, the values to be initialized here using 
+
+constructor() {
+
+}
+
+2) Event Binding : You can bind the events to the given 
+html controls
+
+-> click : You can bind click event to the given component as
+
+	(click)="method()" 
+
+alert() : Used to display any dialog box message. 
+
+3) Two-Way Binding : Ensures there will be automatic updates 
+taken place from model to view and view to model
+as if you change value in html, ts file affects automatically
+vice-versa
+
+To implement Two-Way binding, we need to import FormsModule,
+You can specify by using [(ngModel)] 
+
