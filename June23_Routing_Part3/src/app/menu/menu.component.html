@@ -1,0 +1,18 @@
+<p>menu works!</p>
+<a [routerLink]="['/menu',{outlets:{'hexa':['first']}}]">First Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['second']}}]">Second Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['third']}}]">Third Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['four']}}]">Four Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['five']}}]">Five Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['twoway']}}]">Twoway Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['calc']}}]">Calc Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<hr/>
+<router-outlet name="hexa"></router-outlet>
