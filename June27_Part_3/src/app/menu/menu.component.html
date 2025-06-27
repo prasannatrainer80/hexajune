@@ -1,0 +1,10 @@
+<p>menu works!</p>
+<a [routerLink]="['/menu',{outlets:{'hexa':['employShow']}}]">Employ Show Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['employSearch']}}]">Employ Search Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['employAdd']}}]">Employ Add Form</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<hr/>
+<router-outlet name="hexa"></router-outlet>
