@@ -1,0 +1,104 @@
+You can pass parameters through angular routes by using 
+
+snapshot parameters. 
+
+Services : 
+
+Contains code that can be accessable across multiple components. 
+
+You can create a service by using command as 
+
+ng g service service_name 
+
+There are 2 types of services as 
+
+
+1) Angular Services
+
+2) Http Services 
+
+In Angular Services, we have service code, that can be used across multiple components. 
+
+Http Services allows you to access the external http service data 
+
+Http Services allows you to bind external data to the component. 
+
+To Start with http Services 
+
+npm i @angular/http@latest 
+
+Next, go to app.module.ts file
+
+Write the below code as 
+
+import {HttpClientModule} from '@angular/http/common';
+
+Please import that in imports section also
+
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule,
+  ],
+
+When you invoke a service, by default it returns promise values. 
+
+Promise values are resolve and reject.
+
+If service successfully running then it return resolve 
+
+If service throws an error, then it returns reject. 
+
+To Capture the promise values, in angular we have Observables. 
+
+	Observables can help manage async data and a few other useful patterns. Observables are similar to Promises but with a few key differences. The first is Observables emit multiple values over time. For example a Promise once called will always return one value or one error. This is great until you have multiple values over time. Web socket/real-time based data or event handlers can emit multiple values over any given time.
+
+
+
+	Observables allows you to manage asynchronous data
+
+	Observable can trasmit more than one value over the time. 
+
+	Observables can be cancellable. 
+
+To Install observable we have to give the command as 
+
+npm i rxjs-compat --save 
+
+map() : Used to map json data to the angular observable class objects. 
+
+how to call service into angular project. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
