@@ -1,0 +1,92 @@
+<p>employ-form works!</p>
+<form [formGroup]="employForm" (ngSubmit)="employSubmit()">
+    <table border="3" align="center">
+        <tr>
+            <th>Employ No :</th>
+            <td>
+                <input formControlName="empno" />
+                <div *ngIf="employForm.get('empno').invalid && 
+                    isValidFormSubmitted != null && 
+                    !isValidFormSubmitted
+                  ">
+                <p style="color: red;">Please Enter Employ No...</p>
+                  </div>
+            </td>
+        </tr>
+         <tr>
+            <th>Employ Name :</th>
+            <td>
+                <input formControlName="name" />
+                <div *ngIf="employForm.get('name').invalid && 
+                    isValidFormSubmitted != null && 
+                    !isValidFormSubmitted
+                  ">
+                <p style="color: red;">Please Enter Employ Name...</p>
+                  </div>
+            </td>
+        </tr>
+         <tr>
+            <th>Gender :</th>
+            <td>
+                <input formControlName="gender" />
+                <div *ngIf="employForm.get('gender').invalid && 
+                    isValidFormSubmitted != null && 
+                    !isValidFormSubmitted
+                  ">
+                <p style="color: red;">Please Enter Gender...</p>
+                  </div>
+            </td>
+        </tr>
+         <tr>
+            <th>Department :</th>
+            <td>
+                <input formControlName="dept" />
+                <div *ngIf="employForm.get('dept').invalid && 
+                    isValidFormSubmitted != null && 
+                    !isValidFormSubmitted
+                  ">
+                <p style="color: red;">Please Enter Department...</p>
+                  </div>
+            </td>
+        </tr>
+         <tr>
+            <th>Designation :</th>
+            <td>
+                <input formControlName="desig" />
+                <div *ngIf="employForm.get('desig').invalid && 
+                    isValidFormSubmitted != null && 
+                    !isValidFormSubmitted
+                  ">
+                <p style="color: red;">Please Enter Designation...</p>
+                  </div>
+            </td>
+        </tr>
+         <tr>
+            <th>Basic :</th>
+            <td>
+                <input formControlName="basic" />
+                <div *ngIf="employForm.get('basic').invalid && 
+                    isValidFormSubmitted != null && 
+                    !isValidFormSubmitted
+                  ">
+                <p style="color: red;">Please Enter Basic...</p>
+                  </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th colspan="2">
+                <input type="submit" value="Show" />
+            </th>
+        </tr>
+    </table>
+    <hr/>
+    <div *ngIf="isValidFormSubmitted == true">
+        Employ No : <b> {{employForm.get("empno").value}}</b> <br/>
+        Employ Name : <b>{{employForm.get("name").value}} </b> <br/>
+        Gender : <b>{{employForm.get("gender").value}}</b> <br/>
+        Department : <b>{{employForm.get("dept").value}} </b> <br/>
+        Designation : <b>{{employForm.get("desig").value}} </b> <br/>
+        Basic : <b>{{employForm.get("basic").value}} </b>
+    </div>
+</form>

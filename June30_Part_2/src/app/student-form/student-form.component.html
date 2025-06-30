@@ -1,0 +1,61 @@
+<p>student-form works!</p>
+<form [formGroup]="studentForm" (ngSubmit)="studentSubmit()">
+    <table border="3" align="center">
+        <tr>
+            <th>Student Name</th>
+            <td>
+                <input formControlName="uname" />
+                <div *ngIf="studentForm.get('uname').invalid && 
+                    isValidFormSubmitted !=null && 
+                    !isValidFormSubmitted
+                    ">
+                <p style="color: red;">Please Enter Student Name</p>
+                    </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td>
+                <input formControlName="gender" />
+                <div *ngIf="studentForm.get('gender').invalid && 
+                        isValidFormSubmitted !=null &&
+                        !isValidFormSubmitted">
+                    <p style="color: red;">Please Enter Gender...</p>
+                        </div> 
+            </td>
+        </tr>
+         <tr>
+            <th>Married</th>
+            <td>
+                <input formControlName="married" />
+                <div *ngIf="studentForm.get('married').invalid && 
+                        isValidFormSubmitted !=null &&
+                        !isValidFormSubmitted">
+                    <p style="color: red;">Please Enter MaritalStatu...</p>
+                        </div> 
+            </td>
+        </tr>
+        <tr>
+            <th>Terms & Condition</th>
+            <td>
+                <input formControlName="tc" />
+                <div *ngIf="studentForm.get('tc').invalid && 
+                        isValidFormSubmitted !=null &&
+                        !isValidFormSubmitted">
+                    <p style="color: red;">Please Enter Terms and Conditions...</p>
+                </div> 
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2">
+                <input type="submit" value="Show" />
+            </th>
+        </tr>
+    </table>
+    <div *ngIf="isValidFormSubmitted == true">
+        Student Name : <b>{{studentForm.get('uname').value}}</b> <br/>
+        Gender : <b>{{studentForm.get('gender').value}}</b> <br/>
+        Married : <b>{{studentForm.get('married').value}}</b> <br/>
+        Terms & Conditions : <b>{{studentForm.get('tc').value}}</b> <br/>
+    </div>
+</form>
