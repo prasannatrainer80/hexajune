@@ -1,0 +1,36 @@
+Forms in angular allows you to accept input from the user, and perform validations and business operations. 
+
+There are various types of forms in angular as 
+
+1) Template Driven Forms : Ensures code to be written by using Two-Way binding, [(ngModel)], and less operations on ts file.
+
+Pros : 
+_______
+
+	-> Easy to use
+	-> Suitable for simple scenarios
+	-> Not recommended for complex scenarios
+	-> Need to depend on two way binding
+	-> Minimal component code
+	-> Automatic track of form and its data
+	-> Templates are validated via directives
+	-> Data model is un-structured
+	-> Predictability in template for is asynchronous
+	-> Form validation, as we add more validator tags to a field or
+		when we start adding complex cross-field validations the
+		readability of the form decreases
+
+Angular Validations, we have various form states known as 
+
+1) Pristine : The user has not modified by form control value
+
+2) Dirty : The user has modified the form control
+
+3) Touched : The user has interacted with the form control, e.g. by clicking or focusing on it.
+
+4) Untouched : The form control has not been interacted with by the user
+
+5) Valid : The form controls value meets the validation rules 
+
+2) Model Driven Forms 
+

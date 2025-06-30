@@ -1,0 +1,31 @@
+<p>valid-form works!</p>
+<form #validationForm="ngForm" (ngSubmit)="show(validationForm)">
+    Enter Student No : 
+    <input type="number" name="sno" [(ngModel)]="sno" required /> 
+    <div *ngIf="validationForm.submitted && !isValid">
+        <p style="color:red;">
+            Please Enter Student No...
+        </p>
+    </div> <br/> <br/>
+    Enter Student Name : 
+    <input type="text" name="sname" [(ngModel)]="sname" required />
+    <div *ngIf="validationForm.submitted && !isValid">
+        <p style="color:red;">
+            Please Enter Student Name...
+        </p>
+    </div> <br/><br/>
+    City :
+    <input type="text" name="city" id="city"
+        [(ngModel)]="city"  /> <br/><br/>
+   
+   
+    <div *ngIf="city.untouched">Its Not Touched Yet</div>
+    <input type="Submit" value="Login" />
+
+    <br/><hr/>
+    <div *ngIf="isValid == true">
+        Student No : <b> {{sno}}</b> <br/><br/>
+        Student Name : <b>{{sname}}</b> <br/><br/>
+        Student City : <b>{{city}}</b>
+    </div>
+</form>
