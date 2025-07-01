@@ -1,0 +1,50 @@
+<p>place-order works!</p>
+<form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)">
+    Customer Id : 
+    <input type="number" name="cusId" 
+        required [(ngModel)]="orders.cusId"
+    #cusId="ngModel" /> <br/>
+ <br/><br/>
+Menu Id : 
+    <select [(ngModel)]="orders.menId" #menId="ngModel" [ngModelOptions]="{standalone: true}">
+    <option *ngFor="let e of menu" value={{e.menId}}>
+        {{e.menItem}}
+    </option>
+</select> <br/>
+Vendor Id : 
+     <select [(ngModel)]="orders.venId" #venId="ngModel" [ngModelOptions]="{standalone: true}">
+    <option *ngFor="let e of vendor" value={{e.venId}}>
+        {{e.venName}}
+    </option>
+</select> <br/>
+Wallet Type : 
+ <select [(ngModel)]="orders.walSource" #walSource="ngModel" [ngModelOptions]="{standalone: true}">
+    <option *ngFor="let e of wallet" value={{e.walSource}}>
+        {{e.walSource}}
+    </option>
+</select> <br/>
+Order Quantity : 
+    <input type="number" name="ordQuantity" 
+        required [(ngModel)]="orders.ordQuantity"
+    #ordQuantity="ngModel" /> <br/>
+ <br/>
+ Order Comments : 
+   <input type="text" name="ordComments" 
+        required [(ngModel)]="orders.ordComments"
+    #ordComments="ngModel" /> <br/>
+
+<!-- Customer Password : 
+<input type="password" name="cusPassword" 
+    required [(ngModel)]="customer.cusPassword"
+#cusPassword="ngModel" /> <br/>
+<div *ngIf="cusPassword.invalid && loginForm.submitted && !isValid">
+<p style="color: red;">
+Please Enter Password...
+</p>
+</div><br/><br/> -->
+<input type="submit" value="Place Order" />
+</form>
+
+<p>
+    Result is : <b>{{result}}</b>
+</p>

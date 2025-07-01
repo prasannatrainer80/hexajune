@@ -1,0 +1,14 @@
+<p>customer-menu works!</p>
+<a [routerLink]="['/customerMenu',{outlets:{'customer':['customerInfo']}}]">Customer Info</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/customerMenu',{outlets:{'customer':['customerWallet']}}]">Customer Wallet</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/customerMenu',{outlets:{'customer':['customerOrders']}}]">Customer Orders</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/customerMenu',{outlets:{'customer':['customerPendingOrders']}}]">Customer Pending Orders</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/customerMenu',{outlets:{'customer':['placeOrder']}}]">Place Order</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/home']">Home Page</a>
+<hr/>
+<router-outlet name="customer"></router-outlet>

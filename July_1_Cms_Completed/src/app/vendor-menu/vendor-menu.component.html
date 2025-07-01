@@ -1,0 +1,12 @@
+<p>vendor-menu works!</p>
+<a [routerLink]="['/vendorMenu',{outlets:{'vendor':['vendorInfo']}}]">Vendor Info</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/vendorMenu',{outlets:{'vendor':['vendorOrders']}}]">Vendor Orders</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/vendorMenu',{outlets:{'vendor':['vendorPendingOrders']}}]">Vendor Pending Orders</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/vendorMenu',{outlets:{'vendor':['vendorAcceptReject']}}]">Vendor Accept/Reject</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/home']">Home Page</a>
+<hr/>
+<router-outlet name="vendor"></router-outlet>
