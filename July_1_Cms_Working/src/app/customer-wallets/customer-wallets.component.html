@@ -1,0 +1,16 @@
+<p>customer-wallets works!</p>
+<table border="3" align="center">
+    <tr>
+        <th>Customer Id</th>
+        <th>Wallet Id</th>
+        <th>Wallet Amount</th>
+        <th>Wallet Type</th>
+    </tr>
+    <tr *ngFor="let w of wallet">
+        <td>{{w.cusId}}</td>
+        <td>{{w.walId}}</td>
+        <td>{{w.walAmount}}</td>
+        <td>{{w.walSource}}</td>
+        
+    </tr>
+</table>
