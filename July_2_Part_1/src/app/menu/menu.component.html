@@ -1,0 +1,9 @@
+<p>menu works!</p>
+<a [routerLink]="['/menu',{outlets:{'hexa':['employAdd']}}]">Add Employ</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['generateToken']}}]">Generate Token</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/menu',{outlets:{'hexa':['employShow']}}]">Show Employ</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<hr/>
+<router-outlet name="hexa"></router-outlet>

@@ -1,0 +1,10 @@
+<p>generate-token works!</p>
+User Name : 
+<input type="text" name="userName" [(ngModel)]="userName" /> 
+<br/><br/>
+Password : 
+<input type="password" name="passWord" [(ngModel)]="passWord" />
+<br/><br/>
+<input type="button" value="Generate Token" (click)="generate()" />
+<hr/>
+<b>{{jwt}}</b>

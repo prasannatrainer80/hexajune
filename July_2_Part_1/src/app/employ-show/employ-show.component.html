@@ -1,0 +1,19 @@
+<p>employ-show works!</p>
+<table border="3" align="center">
+    <tr>
+        <th>Employ Id</th>
+        <th>Employ Name</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Roles</th>
+    </tr>
+    <tr *ngFor="let e of employs">
+        <td>{{e.eid}}</td>
+        <td>{{e.name}}</td>
+        <td>{{e.gender}}</td>
+        <td>{{e.email}} </td>
+        <td>{{e.password}}</td>
+        <td>{{e.roles}} </td>
+    </tr>
+</table>

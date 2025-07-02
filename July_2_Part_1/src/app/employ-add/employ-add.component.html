@@ -1,0 +1,50 @@
+<p>employ-add works!</p>
+<form #employForm="ngForm" (ngSubmit)="addEmploy(employForm)">
+     Employ Name : 
+    <input type="text" name="name" 
+        required [(ngModel)]="employ.name"
+    #name="ngModel" /> <br/>
+<div *ngIf="name.invalid && employForm.submitted && !isValid">
+<p style="color: red;">
+    Please Enter Employ Name...
+</p>
+</div> <br/><br/>
+ Employ Gender : 
+    <input type="text" name="gender" 
+        required [(ngModel)]="employ.gender"
+    #gender="ngModel" /> <br/>
+<div *ngIf="gender.invalid && employForm.submitted && !isValid">
+<p style="color: red;">
+    Please Enter Employ Gender...
+</p>
+</div> <br/><br/>
+Employ Email : 
+    <input type="email" name="email" 
+        required [(ngModel)]="employ.email"
+    #email="ngModel" /> <br/>
+<div *ngIf="email.invalid && employForm.submitted && !isValid">
+<p style="color: red;">
+    Please Enter Employ Email...
+</p>
+</div> <br/><br/>
+Employ Password : 
+    <input type="password" name="password" 
+        required [(ngModel)]="employ.password"
+    #password="ngModel" /> <br/>
+<div *ngIf="password.invalid && employForm.submitted && !isValid">
+<p style="color: red;">
+    Please Enter Employ Password...
+</p>
+</div> <br/><br/>
+Employ Roles : 
+    <input type="text" name="roles" 
+        required [(ngModel)]="employ.roles"
+    #roles="ngModel" /> <br/>
+<div *ngIf="roles.invalid && employForm.submitted && !isValid">
+<p style="color: red;">
+    Please Enter Employ Gender...
+</p>
+</div> <br/><br/>
+<input type="submit" value="Add Employ" />
+</form>
+<b>{{result}}</b>
