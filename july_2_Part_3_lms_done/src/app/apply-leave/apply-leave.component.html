@@ -1,0 +1,28 @@
+<p>apply-leave works!</p>
+<form #applyLeaveForm="ngForm" (ngSubmit)="applyLeave(applyLeaveForm)">
+    
+    Leave Start Date : 
+     <input type="date" name="leaveStartDate" 
+        required [(ngModel)]="leaveHistory.leaveStartDate"
+    #leaveStartDate="ngModel" /> 
+    <br/><br/>
+    Leave End Date : 
+     <input type="date" name="leaveEndDate" 
+        required [(ngModel)]="leaveHistory.leaveEndDate"
+    #leaveEndDate="ngModel" /> 
+    <br/><br/>
+    Leave Type : 
+    <select [(ngModel)]="ltype" [ngModelOptions]="{standalone: true}">
+    <option *ngFor="let e of leaveType">
+        {{e}}
+    </option>
+</select> <br/> <br/>
+    Leave Reason : 
+     <input type="text" name="leaveReason" 
+        required [(ngModel)]="leaveHistory.leaveReason"
+    #leaveReason="ngModel" /> 
+    <br/><br/>
+    <input type="submit" value="Apply Leave" />
+ </form>
+ <hr/>
+ {{result}}

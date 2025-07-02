@@ -1,0 +1,25 @@
+<p>employee-leave-history works!</p>
+<table border="3" align="center">
+    <tr>
+        <th>Leave Id</th>
+        <th>Employee Id</th>
+        <th>Leave Start Date</th>
+        <th>Leave End Date</th>
+        <th>No Of Days</th>
+        <th>Leave Type</th>
+        <th>Leave Status</th>
+        <th>Leave Reason</th> 
+        <th>Manager Comments</th>
+    </tr>
+    <tr *ngFor="let l of leaveHistory">
+        <td>{{l.leaveId}}</td>
+        <td>{{l.empId}}</td>
+        <td>{{l.leaveStartDate}} </td>
+        <td>{{l.leaveEndDate}}</td>
+        <td>{{l.leaveNoOfDays}}</td>
+        <td>{{l.leaveType}}</td>
+        <td>{{l.leaveStatus}}</td>
+        <td>{{l.leaveReason}}</td>
+        <td>{{l.leaveMngrComments}}</td>
+    </tr>
+</table>

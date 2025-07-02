@@ -1,0 +1,27 @@
+<p>employ-table works!</p>
+<table border="3" align="center">
+    <tr>
+        <th>Employee Id</th>
+        <th>Employee Name</th>
+        <th>Employee Mail</th>
+        <th>Mobile No</th>
+        <th>Date of Join</th>
+        <th>Department</th>
+        <th>Manager Id</th>
+        <th>Leave Balance</th>
+        <th>Show Info</th>
+    </tr>
+    <tr *ngFor="let e of employs">
+        <td>{{e.empId}}</td>
+        <td>{{e.empName}}</td>
+        <td>{{e.empMail}} </td>
+        <td>{{e.empMobNo}}</td>
+        <td>{{e.empDtJoin}}</td>
+        <td>{{e.empDept}}</td>
+        <td>{{e.empManagerId}}</td>
+        <td>{{e.empAvailLeaveBal}} </td>
+        <td>
+            <input type="button" value="Show" (click)="show(e.empId,e.empManagerId)" />
+        </td>
+    </tr>
+</table>
