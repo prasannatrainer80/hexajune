@@ -1,0 +1,33 @@
+<p>employ-paginator-sort works!</p>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- Id Column -->
+      <ng-container matColumnDef="empno">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Employ No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.empno}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Employ Name. </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender. </th>
+        <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dept">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Department. </th>
+        <td mat-cell *matCellDef="let element"> {{element.dept}} </td>
+      </ng-container>
+      <ng-container matColumnDef="desig">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Designation. </th>
+        <td mat-cell *matCellDef="let element"> {{element.desig}} </td>
+      </ng-container>
+       <ng-container matColumnDef="basic">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Salary. </th>
+        <td mat-cell *matCellDef="let element"> {{element.basic}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
