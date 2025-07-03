@@ -1,0 +1,14 @@
+1) Admin Detais
+
+	-> Add Admin
+	-> Login Admin
+
+	    Add Asset Show Assets  ShowAssetInfo
+
+	-> Asset Request (Yes/No)
+
+2) Employ
+	-> Add Employ
+	-> Login Employ
+	-> Request for Asset 
+

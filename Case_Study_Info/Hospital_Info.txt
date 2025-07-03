@@ -1,0 +1,17 @@
+1) Admin Detais
+
+-> Add Admin
+-> Login Admin
+
+Once Login Admin Happens Define dashboard (admin) as
+
+Add Doctor  AddAppointment UpdateAppointment CancelAppointment
+
+AddPatient AdmitPatient
+
+PatientHistory : Show All info about his medical history 
+
+Add Medical History : 
+
+Doctors : DoctorsShow DoctorSearch DoctorLogin
+
