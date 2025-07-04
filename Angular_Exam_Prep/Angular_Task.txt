@@ -1,0 +1,30 @@
+
+
+Create following components : 
+______________________________
+
+
+   1) EmployShow
+
+   2) StudentShow
+
+   3) EmployDropDown
+
+   4) StudentDropDown
+
+   5) Calculation (Sum/Sub/Mult) 
+
+Now create 3 componets as
+
+MenuComponent, ErrorComponent, LoginComponent
+
+Please add above 5 components under MenuComponent 
+
+By default you have to redirect to LoginComponent
+
+If login values are correct please go to MenuComponent and display all by using <a [routerLink] />
+
+if login values are incorrect please go to ErrorComponent and display message as invalid Credentials
+
+and place one link there as Login Again. 
+
