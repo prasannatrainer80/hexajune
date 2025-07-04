@@ -1,0 +1,19 @@
+Hotel
+	-> Add Hotel
+	-> Search Hotel
+	-> Search By (City/Street + city)
+	-> Show All Hotels
+	-> Update Hotel Info
+	-> Delete Hotel
+
+Room -> 
+	AddRoom
+	Search By Category(AC/NON-AC/Single/Double)
+	ShowAvailableRooms of HOtel
+	ShowBookedRoom of Hotel
+	CheckAvailability(Date-wise)
+
+Booking -> 
+	AddBooking
+	UpdateBooking
+	CancelBooking
