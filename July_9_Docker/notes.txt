@@ -1,0 +1,103 @@
+Program 1 : 
+____________
+
+Create a Java Program in notepad and Save file as Hello.java (use "" as else .txt extension will come) 
+
+public class Hello {
+	public static void main(String[] args) {
+		System.out.println("Welcome to Docker Programming...");
+	}
+}
+
+Save the file in c:\docker\java-app folder
+
+Configure javac path nd download maven and add the path to that
+
+Create a docker file as 
+
+FROM openjdk:8
+COPY . /var/www/java
+WORKDIR /var/www/java
+RUN javac Hello.java
+CMD ["java", "Hello"]
+
+
+save the file in java-app as "Dockerfile" 
+
+In the command prompt of c:\docker\java-app
+
+docker build -t java-app
+
+After building successfully to run this 
+
+docker run java-app
+
+________________________________________________________________
+
+Program 2 : 
+
+Create a java program and give the filename as "Scan1.java" and write below code
+
+import java.util.Scanner;
+public class Scan1 {
+	public static void main(String[] args) {
+	  Scanner sc = new Scanner(System.in);	
+	  String name;
+	  System.out.println("Enter Name  ");
+	  name = sc.nextLine();
+	  System.out.println(name);
+       }
+}
+
+Create a docker file and write the below code in that
+
+FROM openjdk:8
+COPY . /var/www/java
+WORKDIR /var/www/java
+RUN javac Scan1.java
+CMD ["java", "Scan1"]
+
+
+Save these files in java-input folder. 
+
+To Build
+
+docker build -t java-input 
+
+To Run 
+
+docker run -it java-input (for interactive mode) 
+
+___________________________________________________________________
+
+Program 3 : 
+
+Create a Sb Project and add controller to that and write the code, name the file as HelloController.java (select jar instead of war)
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+
+	@GetMapping(value="/hello")
+	public String hello() {
+		return "Welcome to Spring Boot Programming...";
+	}
+}
+
+Copy the folder into (c:\docker) 
+
+To build, run the command as
+
+mvn clean package
+
+in target folder rename the jar file as report extension except file name as SbApp.jar
+
+To build 
+
+docker build -t sbapp
+
+To Run
+
+docker run -p 8080:8080 sbapp
