@@ -152,6 +152,7 @@ OF COL_NAME
 
 Old values can be accessable by using old as 
 
+
 old:city old:state old:salary
 
 updated values can be accesable by using new keyword as
@@ -221,4 +222,56 @@ we can pass both input and output parametgers
 
 19) what operations are suppored in stored procedures INSERT, UPDATE, DELETE,SELECT
 
+20) What is a Cursor in PL/SQL
+
+a) variable b) Pointers in Memory c) Pointer to Context Area
+d) Loop Structure
+
+(c)
+
+21) What are types of Cursors 
+
+  -> Implicit
+  -> Explicit
+
+22) How to create explicit cursor 
+
+Using CURSOR statement
+
+23) Which operation retrieves rows from a cursor 
+
+FETCH
+
+24) Which Cursor Attribute returns no.of rows fetched
+
+%ROWCOUNT
+
+25) Which method used to Open the cursor
+
+%OPEN
+
+26) What is the correct order for CUrsors 
+
+OPEN -> FETCH -> CLOSE
+
+27) Which loops are used with cursors
+
+FOR LOOP
+WHILE LOOP
+LOOP...END LOOP
+
+28) Which cursor does not need open/fetch/close
+
+Implicit Cursor
+
+29) When Rows are not there the return value is 
+
+%NOTFOUND
+
+30) Can we pass values from Cursors (YES)
+Parameterized CUrsors
+
+31) How to Define Implicit Cursor
+
+using For Loop with cursor
 
